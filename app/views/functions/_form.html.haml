@@ -1,0 +1,24 @@
+- content_for(:javascripts) do
+  = javascript_include_tag("function")
+
+= form_for(@function) do |f|
+  .row
+    .col-lg-6
+      = text_input(:name, :function, :placeholder => 'A short name for the function')
+      = text_input(:description, :function, :placeholder => 'Describe how the function should work')
+      = text_input(:args, :function, :placeholder => 'A comma-separated list; e.g., "values:array, recursive:boolean"')
+      = text_input(:return, :function, :placeholder => "The function's return type")
+
+      .form-group
+        = f.label(:signature)
+        = f.text_area(:signature, :class => 'editor', :'data-readonly' => true)
+
+    .col-lg-6
+      %fieldset
+        %legend Add some unit tests
+
+        .form-group
+          = f.label(:tests)
+          = f.text_area(:tests, :class => 'editor')
+
+  = submit_tag('Create', :class => 'btn btn-primary')

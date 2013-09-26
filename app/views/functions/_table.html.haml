@@ -1,0 +1,17 @@
+%table.functions.table.table-striped
+  %thead
+    %tr
+      %th User
+      %th Function
+      %th Description
+      %th Created
+      %th Implementations
+
+  %tbody
+    - @functions.each do |function|
+      %tr
+        %td.user= function.user.user_name
+        %td.name= link_to(function.name, function)
+        %td.description= function.description
+        %td.created= "#{time_ago_in_words(function.created_at)} ago"
+        %td.implementations= function.implementations_count

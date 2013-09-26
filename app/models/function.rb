@@ -1,4 +1,4 @@
-class Spec < ActiveRecord::Base
+class Function < ActiveRecord::Base
   TEST_FRAMEWORKS = ['jasmine', 'mocha']
 
   belongs_to :user

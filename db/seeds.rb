@@ -15,16 +15,16 @@ def create_user(user_name, real_name, email)
   })
 end
 
-def create_spec(user, name, description, signature)
-  user.specs.create!({
+def create_function(user, name, description, signature)
+  user.functions.create!({
     :name => name,
     :description => description,
     :signature => signature
   })
 end
 
-def add_implementation(user, spec, source)
-  spec.implementations.create!({
+def add_implementation(user, function, source)
+  function.implementations.create!({
     :user => user,
     :source => source
   })
@@ -34,7 +34,7 @@ dan = create_user('dtao', 'Dan Tao', 'daniel.tao@gmail.com')
 joe = create_user('joe', 'Joe Schmoe', 'joe.schmoe@gmail.com')
 jqp = create_user('jqp', 'Johnny Q. Public', 'johnny.q.public@gmail.com')
 
-chunk = create_spec dan, 'chunk', 'Split an array into N-sized chunks', <<-JAVASCRIPT
+chunk = create_function dan, 'chunk', 'Split an array into N-sized chunks', <<-JAVASCRIPT
 /**
  * Split an array into N-sized chunks
  *
@@ -67,7 +67,7 @@ function chunk(array, chunkSize) {
 }
 JAVASCRIPT
 
-compare_arrays = create_spec dan, 'compareArrays', 'Compare two arrays to see if they contain the same elements', <<-JAVASCRIPT
+compare_arrays = create_function dan, 'compareArrays', 'Compare two arrays to see if they contain the same elements', <<-JAVASCRIPT
 /**
  * Compare two arrays to see if they contain the same elements
  *

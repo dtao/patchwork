@@ -1,6 +1,6 @@
-class CreateSpecs < ActiveRecord::Migration
+class CreateFunctions < ActiveRecord::Migration
   def change
-    create_table :specs do |t|
+    create_table :functions do |t|
       t.integer :user_id
       t.string  :name
       t.string  :signature
@@ -14,6 +14,6 @@ class CreateSpecs < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :specs, :name, :unique => true
+    add_index :functions, :name, :unique => true
   end
 end

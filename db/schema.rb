@@ -26,22 +26,7 @@ ActiveRecord::Schema.define(version: 20130926145446) do
   add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "implementations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "spec_id"
-    t.string   "name"
-    t.text     "description"
-    t.text     "source"
-    t.integer  "score",       default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "implementations", ["name"], name: "index_implementations_on_name", using: :btree
-  add_index "implementations", ["spec_id"], name: "index_implementations_on_spec_id", using: :btree
-  add_index "implementations", ["user_id"], name: "index_implementations_on_user_id", using: :btree
-
-  create_table "specs", force: true do |t|
+  create_table "functions", force: true do |t|
     t.integer  "user_id"
     t.string   "name"
     t.string   "signature"
@@ -53,7 +38,22 @@ ActiveRecord::Schema.define(version: 20130926145446) do
     t.datetime "updated_at"
   end
 
-  add_index "specs", ["name"], name: "index_specs_on_name", unique: true, using: :btree
+  add_index "functions", ["name"], name: "index_functions_on_name", unique: true, using: :btree
+
+  create_table "implementations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "function_id"
+    t.string   "name"
+    t.text     "description"
+    t.text     "source"
+    t.integer  "score",       default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "implementations", ["function_id"], name: "index_implementations_on_function_id", using: :btree
+  add_index "implementations", ["name"], name: "index_implementations_on_name", using: :btree
+  add_index "implementations", ["user_id"], name: "index_implementations_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "user_name"

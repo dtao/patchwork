@@ -1,5 +1,5 @@
 %h2
-  = link_to(@implementation.spec.name, @implementation.spec)
+  = link_to(@implementation.function.name, @implementation.function)
   = "/"
   = link_to(@implementation.user.user_name, @implementation.user)
   = form_tag(vote_url(@implementation), :style => 'display: inline-block;') do

@@ -5,7 +5,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @specs = @user.specs.order(:name => :asc)
+    @functions = @user.functions.order(:name => :asc)
     @implementations = @user.implementations.order(:id => :desc)
   end
 end

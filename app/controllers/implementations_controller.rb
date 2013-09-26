@@ -1,13 +1,13 @@
 class ImplementationsController < ApplicationController
   def new
-    @spec = Spec.find(params[:id])
-    @implementation = Implementation.new(:spec => @spec, :source => @spec.signature)
+    @function = Function.find(params[:id])
+    @implementation = Implementation.new(:function => @function, :source => @function.signature)
   end
 
   def create
     implementation = Implementation.create!(implementation_params)
 
-    flash[:notice] = "Successfully saved implementation for '#{implementation.spec.name}'"
+    flash[:notice] = "Successfully saved implementation for '#{implementation.function.name}'"
 
     redirect_to(implementation)
   end
@@ -48,7 +48,7 @@ class ImplementationsController < ApplicationController
   private
 
   def implementation_params
-    params.require(:implementation).permit(:spec_id, :source, :name, :description).merge(:user => current_user)
+    params.require(:implementation).permit(:function_id, :source, :name, :description).merge(:user => current_user)
   end
 
   def comment_params

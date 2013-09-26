@@ -1,8 +1,8 @@
-%h2= "Implement #{@spec.name}"
-%p.lead= @spec.description
+%h2= "Implement #{@function.name}"
+%p.lead= @function.description
 
 = form_for(@implementation) do |f|
-  = f.hidden_field(:spec_id)
+  = f.hidden_field(:function_id)
 
   .row
     .col-lg-6
@@ -11,6 +11,6 @@
 
     .col-lg-6
       = f.label(:tests)
-      = text_area_tag(:tests, @spec.tests, :class => 'editor', :'data-readonly' => true)
+      = text_area_tag(:tests, @function.tests, :class => 'editor', :'data-readonly' => true)
 
   = f.submit(:class => 'btn btn-primary')

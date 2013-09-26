@@ -1,6 +1,6 @@
 $(document).on 'ready page:load', ->
-  signatureEditor = patchwork.getOrCreateEditor('spec_signature')
-  testEditor = patchwork.getOrCreateEditor('spec_tests')
+  signatureEditor = patchwork.getOrCreateEditor('function_signature')
+  testEditor = patchwork.getOrCreateEditor('function_tests')
 
   # A flag to track whether the user has edited the tests at all,
   # in which case we don't want to clobber his/her work
@@ -29,16 +29,6 @@ $(document).on 'ready page:load', ->
     }
     """
 
-  jasmineTemplate =
-    """
-    describe('{{{name}}}', function() {
-      // Unit tests go here
-      it('{{{description}}}', function() {
-        expect(true).toEqual(false);
-      });
-    });
-    """
-
   mochaTemplate =
     """
     describe('{{{name}}}', function() {
@@ -62,10 +52,10 @@ $(document).on 'ready page:load', ->
 
       timeoutId = setTimeout(callback, delay)
 
-  getSpecInfo = ->
+  getFunctionInfo = ->
     {
-      name: $('#spec_name').val()
-      description: $('#spec_description').val(),
+      name: $('#function_name').val()
+      description: $('#function_description').val(),
     }
 
   parseArgument = (arg) ->
@@ -77,7 +67,7 @@ $(document).on 'ready page:load', ->
     }
 
   parseArguments = ->
-    values = $('#spec_args').val().split(/,\s*/)
+    values = $('#function_args').val().split(/,\s*/)
     args = []
     for value in values
       if value.length > 0
@@ -86,28 +76,28 @@ $(document).on 'ready page:load', ->
     args
 
   renderSignature = ->
-    spec = getSpecInfo()
+    func = getFunctionInfo()
 
-    if !spec.name && !spec.description
+    if !func.name && !func.description
       signatureEditor.setValue('')
     else
-      spec.args = parseArguments()
-      spec.args_list = (arg.name for arg in spec.args).join(', ')
-      spec.return_type = $('#spec_return').val()
-      signatureEditor.setValue(Mustache.render(signatureTemplate, spec))
+      func.args = parseArguments()
+      func.args_list = (arg.name for arg in func.args).join(', ')
+      func.return_type = $('#function_return').val()
+      signatureEditor.setValue(Mustache.render(signatureTemplate, func))
 
   renderTests = ->
     return if startedEditingTests
 
-    spec = getSpecInfo()
+    func = getFunctionInfo()
 
-    testEditor.setValue(Mustache.render(mochaTemplate, spec))
+    testEditor.setValue(Mustache.render(mochaTemplate, func))
 
   renderSignatureAndTests = ->
     renderSignature()
     renderTests()
 
-  $('#spec_name').on 'change', renderSignatureAndTests
-  $('#spec_description').on 'change', renderSignatureAndTests
-  $('#spec_args').on 'change', renderSignature
-  $('#spec_return').on 'change', renderSignature
+  $('#function_name').on 'change', renderSignatureAndTests
+  $('#function_description').on 'change', renderSignatureAndTests
+  $('#function_args').on 'change', renderSignature
+  $('#function_return').on 'change', renderSignature

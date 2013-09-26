@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_gravatar
   has_secure_password
 
-  has_many :specs
+  has_many :functions
   has_many :implementations
   has_many :comments
 

@@ -7,5 +7,5 @@
   %tbody
     - @implementations.each do |implementation|
       %tr
-        %td= link_to("#{implementation.spec.name}/#{implementation.user.user_name}", implementation)
+        %td= link_to("#{implementation.function.name}/#{implementation.user.user_name}", implementation)
         %td= implementation.score

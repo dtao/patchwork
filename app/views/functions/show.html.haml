@@ -1,0 +1,19 @@
+%h2
+  = @function.name
+  %small= @function.description
+
+.row
+  .col-lg-6
+    %h3 Tests
+    %textarea.editor(data-readonly="true")= @function.tests
+
+  .col-lg-6
+    %h3 Implementations
+    = render(:partial => 'implementations/table')
+
+- if logged_in?
+  %p= link_to('Take a stab', new_implementation_path(@function), :class => 'btn btn-info')
+- else
+  %p!= "#{link_to('Log in', login_path)} to submit an implementation"
+
+= comments_section(comment_on_function_path(@function))
