@@ -1,6 +1,4 @@
 $(document).on 'ready page:load', ->
-  return if window.location.pathname != '/'
-
   signatureTemplate =
     """
     /**

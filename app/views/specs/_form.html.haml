@@ -1,3 +1,6 @@
+- content_for(:javascripts) do
+  = javascript_include_tag("spec")
+
 = form_for(@spec) do |f|
   %fieldset
     = text_input(:name, :spec, :placeholder => 'A short name for the function')
