@@ -1,15 +1,11 @@
 body {
+  padding-top: 60px;
   padding-bottom: 60px;
 
   .container {
     width: 100%;
     max-width: 1920px;
   }
-}
-
-.navbar {
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 table tr th:last-child,
