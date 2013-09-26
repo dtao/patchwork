@@ -1,5 +1,7 @@
 = form_tag do
   %fieldset
+    %legend Register
+
     .form-group
       = label_tag(:user_name)
       = text_field_tag(:'user[user_name]', nil, :class => 'form-control')

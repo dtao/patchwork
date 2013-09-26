@@ -1,5 +1,7 @@
 = form_tag do
   %fieldset
+    %legend Log in
+
     = text_input(:user_name)
     = password_input(:password)
     = submit_tag('Log in', :class => 'btn btn-primary')
