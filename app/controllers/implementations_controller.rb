@@ -15,6 +15,11 @@ class ImplementationsController < ApplicationController
   def vote
     implementation = Implementation.find(params[:id])
 
+    if !logged_in?
+      flash[:error] = "You must log in to vote."
+      return redirect_to(implementation)
+    end
+
     if implementation.user == current_user
       flash[:error] = "You can't vote on your own implementation!"
       return redirect_to(implementation)
