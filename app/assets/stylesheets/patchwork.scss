@@ -38,6 +38,19 @@ input[type="text"], input[type="password"], textarea {
   overflow-x: auto;
 }
 
+table.users {
+  tr > th, tr > td {
+    vertical-align: middle;
+
+    &:first-child {
+      img {
+        border-radius: 20px;
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
 .comments {
   margin-top: 15px;
 }

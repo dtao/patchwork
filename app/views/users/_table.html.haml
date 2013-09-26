@@ -1,4 +1,4 @@
-%table.users.table.table-striped
+%table.users.table.table-striped.table-hover
   %thead
     %th Name
     %th Score
@@ -6,5 +6,7 @@
   %tbody
     - @users.each do |user|
       %tr
-        %td.name= link_to(user.user_name, user)
+        %td.name
+          = image_tag(user.gravatar_url(:size => 40, :default => 'identicon'))
+          = link_to(user.user_name, user)
         %td.score= user.score
