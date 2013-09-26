@@ -1,6 +1,6 @@
 .page-header
   %h1= link_to(rainbowify('Patchwork'), root_path)
-  %p.lead A function-as-library experiment
+  %h2 A function-as-library experiment
 
 - if logged_in?
   .row
@@ -13,4 +13,6 @@
       = render(:partial => 'implementations/table')
 
 - else
+  = render(:partial => 'introduction')
+
   %p!= "#{link_to('Log in', login_path)} or #{link_to('register', register_path)} to continue."
