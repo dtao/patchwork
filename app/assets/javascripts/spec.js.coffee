@@ -40,6 +40,15 @@ $(document).on 'ready page:load', ->
       type: '{' + (parts[1] || '*') + '}'
     }
 
+  parseArguments = ->
+    values = $('#spec_args').val().split(/,\s*/)
+    args = []
+    for value in values
+      if value.length > 0
+        args.push(parseArgument(value))
+
+    args
+
   renderSignature = ->
     editor = patchwork.getOrCreateEditor('spec_signature')
 
@@ -50,7 +59,7 @@ $(document).on 'ready page:load', ->
     if !spec.name && !spec.description
       editor.setValue('')
     else
-      spec.args = (parseArgument(arg) for arg in $('#spec_args').val().split(/,\s*/))
+      spec.args = parseArguments()
       spec.args_list = (arg.name for arg in spec.args).join(', ')
       spec.return_type = $('#spec_return').val()
       editor.setValue(Mustache.render(signatureTemplate, spec))
