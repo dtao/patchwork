@@ -1,3 +1,10 @@
+@mixin rainbow-text($adjustment: 0) {
+  &:nth-child(4n+1) { color: lighten(#3fb618, $adjustment); }
+  &:nth-child(4n+2) { color: lighten(#9954bb, $adjustment); }
+  &:nth-child(4n+3) { color: lighten(#ff7518, $adjustment); }
+  &:nth-child(4n) { color: lighten(#ff0039, $adjustment); }
+}
+
 body {
   padding-top: 60px;
   padding-bottom: 60px;
@@ -36,6 +43,16 @@ input[type="text"], input[type="password"], textarea {
   min-height: 300px;
   overflow-y: hidden;
   overflow-x: auto;
+}
+
+.navbar-brand > span {
+  @include rainbow-text(40%);
+  text-shadow: #000 0 0 5px;
+}
+
+.page-header h1 > a span {
+  @include rainbow-text;
+  font-size: 150%;
 }
 
 table.users {

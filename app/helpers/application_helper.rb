@@ -22,4 +22,8 @@ module ApplicationHelper
   def text_area_input(label, record_type=nil, options={})
     field_input('text_area', label, record_type, options)
   end
+
+  def rainbowify(text)
+    text.each_char.map { |char| "<span>#{char}</span>" }.join('').html_safe
+  end
 end
