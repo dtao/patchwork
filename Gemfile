@@ -48,7 +48,7 @@ group :doc do
 end
 
 group :development do
-  gem 'query_diet', :github => 'dtao/query_diet'
+  gem 'query_diet', :git => 'https://github.com/dtao/query_diet.git'
 end
 
 group :test do
