@@ -4,8 +4,11 @@
 
 .row
   .col-lg-6
+    %h3 Signature
+    %textarea#function-signature.editor(data-readonly="true")= @function.signature
+
     %h3 Tests
-    %textarea.editor(data-readonly="true")= @function.tests
+    %textarea#function-tests.editor(data-readonly="true")= @function.tests
 
   .col-lg-6
     %h3 Implementations
