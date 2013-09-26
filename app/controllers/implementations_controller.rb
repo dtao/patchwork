@@ -1,4 +1,9 @@
 class ImplementationsController < ApplicationController
+  def new
+    @spec = Spec.find(params[:id])
+    @implementation = Implementation.new(:spec => @spec, :source => @spec.signature)
+  end
+
   def create
     implementation = Implementation.create!(implementation_params)
 

@@ -4,14 +4,16 @@
 
 .row
   .col-lg-6
+    %h3 Tests
+    %textarea.editor(data-readonly="true")= @spec.tests
+
+  .col-lg-6
     %h3 Implementations
     = render(:partial => 'implementations/table')
 
-  .col-lg-6
-    %h3 Take a stab
-    - if logged_in?
-      = render(:partial => 'implementations/form')
-    - else
-      != "#{link_to('Log in', login_path)} to submit an implementation"
+- if logged_in?
+  %p= link_to('Take a stab', new_implementation_path(@spec), :class => 'btn btn-info')
+- else
+  %p!= "#{link_to('Log in', login_path)} to submit an implementation"
 
 = comments_section(comment_on_spec_path(@spec))

@@ -37,6 +37,7 @@ input[type="text"], input[type="password"], textarea {
 
 .CodeMirror {
   height: auto;
+  margin-bottom: 21px;
 }
 
 .CodeMirror-scroll {
@@ -69,7 +70,7 @@ table.users {
 }
 
 .comments {
-  margin-top: 15px;
+  margin-top: 21px;
 }
 
 // Need to move this to the bottom right
