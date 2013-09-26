@@ -81,6 +81,16 @@ table.users {
   margin-top: 21px;
 }
 
+#test-results {
+  .success {
+    color: #080;
+  }
+
+  .failure {
+    color: #f00;
+  }
+}
+
 // Need to move this to the bottom right
 // so it isn't blocked by the navbar
 #query_diet {

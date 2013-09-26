@@ -1,3 +1,6 @@
+- content_for(:javascripts) do
+  = javascript_include_tag("implementation")
+
 %h2= "Implement #{@function.name}"
 %p.lead= @function.description
 
@@ -6,11 +9,18 @@
 
   .row
     .col-lg-6
-      = f.label(:source)
-      = f.text_area(:source, :class => 'editor')
+      = text_input(:name, :implementation, :placeholder => 'An optional name for this implementation')
+
+      .form-group
+        = f.label(:source)
+        = f.text_area(:source, :class => 'editor')
 
     .col-lg-6
-      = f.label(:tests)
-      = text_area_tag(:tests, @function.tests, :class => 'editor', :'data-readonly' => true)
+      .form-group
+        = f.label(:tests)
+        = text_area_tag(:tests, @function.tests, :class => 'editor', :'data-readonly' => true)
 
-  = f.submit(:class => 'btn btn-primary')
+      #test-results.list-group
+
+  = f.button('Test', :id => 'test-button', :class => 'btn btn-warning')
+  = f.submit('Submit', :class => 'btn btn-primary')
