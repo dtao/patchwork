@@ -29,3 +29,5 @@
         .alert.alert-danger= flash[:error]
 
       = yield
+
+    = query_diet_widget if Rails.env.development?

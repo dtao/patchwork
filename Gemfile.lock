@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/dtao/query_diet.git
+  revision: f335cd8fd9b4db145ecb906bb730ba730ea3aadc
+  specs:
+    query_diet (0.5.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -156,6 +162,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   pg
+  query_diet!
   rails (= 4.0.0)
   rails_12factor
   rspec-rails

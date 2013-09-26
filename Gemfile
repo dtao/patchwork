@@ -44,6 +44,10 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem 'query_diet', :github => 'dtao/query_diet'
+end
+
 group :test do
   gem 'debugger'
   gem 'rspec-rails'
