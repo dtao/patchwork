@@ -3,6 +3,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.0'
 
+# Use Thin as the application server
+gem 'thin'
+
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
