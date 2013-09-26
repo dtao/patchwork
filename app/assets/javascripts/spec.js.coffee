@@ -43,7 +43,7 @@ $(document).on 'ready page:load', ->
     }
 
   renderSignature = ->
-    editor = fls.getOrCreateEditor('spec_signature')
+    editor = patchwork.getOrCreateEditor('spec_signature')
 
     spec =
       name: $('#spec_name').val()

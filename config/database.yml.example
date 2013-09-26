@@ -2,22 +2,22 @@ development:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: fls_development
-  username: fls
+  database: patchwork_development
+  username: patchwork
   password: passw0rd
 
 test:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: fls_test
-  username: fls
+  database: patchwork_test
+  username: patchwork
   password: passw0rd
 
 production:
   adapter: postgresql
   encoding: unicode
   host: localhost
-  database: fls_production
-  username: fls
+  database: patchwork_production
+  username: patchwork
   password: passw0rd

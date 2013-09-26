@@ -15,7 +15,7 @@ class HomeController < ApplicationController
       # Log the user in.
       session[:user_id] = user.id
 
-      flash[:notice] = "Welcome to FLS, #{user.real_name}!"
+      flash[:notice] = "Welcome, #{user.real_name}!"
       redirect_to(root_path)
     end
   end

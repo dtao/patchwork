@@ -16,5 +16,5 @@
 //= require codemirror
 //= require codemirror/javascript
 //= require mustache
-//= require fls
+//= require patchwork
 //= require spec
