@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def comments_section(path)
+    render(:partial => 'layouts/comments', :locals => { :path => path })
+  end
+
   def field_input(partial, label, record_type=nil, options={})
     render(:partial => "layouts/#{partial}_input", :locals => {
       :label => label,

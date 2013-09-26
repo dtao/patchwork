@@ -14,8 +14,9 @@ Patchwork::Application.routes.draw do
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
+  post 'specs/:id/comment' => 'specs#comment', :as => :comment_on_spec
   post 'implementations/:id/vote' => 'implementations#vote', :as => :vote
-  post 'implementations/:id/comment' => 'implementations#comment', :as => :comment
+  post 'implementations/:id/comment' => 'implementations#comment', :as => :comment_on_implementation
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products

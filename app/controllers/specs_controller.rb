@@ -19,11 +19,22 @@ class SpecsController < ApplicationController
     @spec = Spec.find(params[:id])
     @implementations = @spec.implementations.order(:score => :desc)
     @implementation = Implementation.new(:spec => @spec, :source => @spec.signature)
+    @comments = @spec.comments.order(:id => :asc)
+  end
+
+  def comment
+    spec = Spec.find(params[:id])
+    spec.comments.create!(comment_params)
+    redirect_to(spec)
   end
 
   private
 
   def spec_params
     params.require(:spec).permit(:signature, :name, :description).merge(:user => current_user)
+  end
+
+  def comment_params
+    params.require(:comment).permit(:content).merge(:user => current_user)
   end
 end

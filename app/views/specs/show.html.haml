@@ -13,3 +13,5 @@
       = render(:partial => 'implementations/form')
     - else
       != "#{link_to('Log in', login_path)} to submit an implementation"
+
+= comments_section(comment_on_spec_path(@spec))

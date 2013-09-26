@@ -8,20 +8,4 @@
 
 %textarea.editor(data-readonly="true")= find_and_preserve(@implementation.source)
 
-.comments
-  - if logged_in?
-    = form_tag(comment_path) do |f|
-      %fieldset
-        %legend Leave a comment
-        = text_area_input(:content, :comment)
-        = submit_tag('Comment', :class => 'btn btn-primary')
-
-  - @comments.each do |comment|
-    .comment.media
-      = link_to(comment.user, :class => 'pull-left') do
-        = image_tag(comment.user.gravatar_url(:default => 'identicon'), :class => 'media-object')
-      .media-body
-        %h4.media-heading
-          = link_to(comment.user.user_name, comment.user)
-          %small= "#{time_ago_in_words(comment.created_at)} ago"
-        %p= comment.content
+= comments_section(comment_on_implementation_path(@implementation))
