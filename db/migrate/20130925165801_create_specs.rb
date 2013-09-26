@@ -5,6 +5,8 @@ class CreateSpecs < ActiveRecord::Migration
       t.string  :name
       t.string  :signature
       t.string  :description
+      t.string  :test_framework
+      t.text    :tests
 
       # Cached calculated values
       t.integer :implementations_count, :default => 0

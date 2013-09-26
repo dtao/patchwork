@@ -31,7 +31,7 @@ class SpecsController < ApplicationController
   private
 
   def spec_params
-    params.require(:spec).permit(:signature, :name, :description).merge(:user => current_user)
+    params.require(:spec).permit(:signature, :name, :description, :tests).merge(:user => current_user)
   end
 
   def comment_params

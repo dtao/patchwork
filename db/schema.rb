@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20130926145446) do
     t.string   "name"
     t.string   "signature"
     t.string   "description"
+    t.string   "test_framework"
+    t.text     "tests"
     t.integer  "implementations_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
