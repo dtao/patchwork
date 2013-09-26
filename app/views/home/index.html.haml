@@ -1,0 +1,17 @@
+- content_for(:before_nav) do
+  .page-header
+    %h1= link_to('FLS', root_path)
+    %p.lead Function Library System
+
+- if logged_in?
+  .row
+    .col-lg-6
+      %h2 My Specs
+      = render(:partial => 'specs/table')
+
+    .col-lg-6
+      %h2 Create a spec
+      = render(:partial => 'specs/form')
+
+- else
+  %p!= "#{link_to('Log in', login_path)} or #{link_to('register', register_path)} to continue."

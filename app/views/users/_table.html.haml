@@ -1,0 +1,10 @@
+%table.users.table.table-striped
+  %thead
+    %th Name
+    %th Score
+
+  %tbody
+    - @users.each do |user|
+      %tr
+        %td.name= link_to(user.user_name, user)
+        %td.score= user.score

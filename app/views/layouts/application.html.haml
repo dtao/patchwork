@@ -1,0 +1,32 @@
+!!! 5
+%html
+  %head
+    %title FLS
+    = stylesheet_link_tag("application", :media => "all", "data-turbolinks-track" => true)
+    = javascript_include_tag("application", "data-turbolinks-track" => true)
+    = csrf_meta_tags
+
+  %body
+    .container
+      = yield(:before_nav)
+
+      .navbar.navbar-inverse
+        %ul.nav.navbar-nav
+          %li= link_to('FLS', root_path, :class => 'navbar-brand')
+          %li= link_to('Specs', specs_path)
+          %li= link_to('Users', users_path)
+
+        %ul.nav.navbar-nav.pull-right
+          - if logged_in?
+            %li.navbar-text= "Logged in as #{current_user.user_name}."
+            %li= link_to('Log out', logout_path)
+          - else
+            %li= link_to('Log in', login_path)
+            %li= link_to('Register', register_path)
+
+      - if flash[:notice]
+        .alert.alert-info= flash[:notice]
+      - elsif flash[:error]
+        .alert.alert-danger= flash[:error]
+
+      = yield

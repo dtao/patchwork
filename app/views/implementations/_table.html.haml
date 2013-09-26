@@ -1,0 +1,11 @@
+%table.implementations.table.table-striped
+  %thead
+    %tr
+      %th Implementation
+      %th Score
+
+  %tbody
+    - @implementations.each do |implementation|
+      %tr
+        %td= link_to("#{implementation.spec.name}/#{implementation.user.user_name}", implementation)
+        %td= implementation.score

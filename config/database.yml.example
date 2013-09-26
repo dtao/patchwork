@@ -1,0 +1,23 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: fls_development
+  username: fls
+  password: passw0rd
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: fls_test
+  username: fls
+  password: passw0rd
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  host: localhost
+  database: fls_production
+  username: fls
+  password: passw0rd
