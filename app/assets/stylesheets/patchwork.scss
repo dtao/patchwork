@@ -51,9 +51,17 @@ input[type="text"], input[type="password"], textarea {
   text-shadow: #000 0 0 5px;
 }
 
-.page-header h1 > a span {
-  @include rainbow-text;
+.page-header h1 > a {
   font-size: 150%;
+  text-decoration: none;
+
+  span {
+    @include rainbow-text;
+  }
+
+  &:hover span {
+    @include rainbow-text(20%);
+  }
 }
 
 table.users {
