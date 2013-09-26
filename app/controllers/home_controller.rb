@@ -5,6 +5,7 @@ class HomeController < ApplicationController
     if logged_in?
       @spec = Spec.new(:user => current_user)
       @specs = current_user.specs.order(:name => :asc)
+      @implementations = current_user.implementations.order(:id => :desc)
     end
   end
 

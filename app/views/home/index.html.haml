@@ -9,8 +9,8 @@
       = render(:partial => 'specs/table')
 
     .col-lg-6
-      %h2 Create a spec
-      = render(:partial => 'specs/form')
+      %h2 My Implementations
+      = render(:partial => 'implementations/table')
 
 - else
   %p!= "#{link_to('Log in', login_path)} or #{link_to('register', register_path)} to continue."
