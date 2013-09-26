@@ -38,6 +38,10 @@ input[type="text"], input[type="password"], textarea {
   overflow-x: auto;
 }
 
+.comments {
+  margin-top: 15px;
+}
+
 // Need to move this to the bottom right
 // so it isn't blocked by the navbar
 #query_diet {
