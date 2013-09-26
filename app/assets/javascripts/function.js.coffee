@@ -18,23 +18,17 @@ $(document).on 'ready page:load', ->
      * @param {{type}} {{name}}
      {{/args}}
      * @return {{return_type}}
-     *
-     * @examples
-     {{#examples}}
-     * {{{input}}} => {{{output}}}
-     {{/examples}}
      */
     function {{{name}}}({{args_list}}) {
       // Implementation goes here
     }
     """
 
-  mochaTemplate =
+  jasmineTemplate =
     """
     describe('{{{name}}}', function() {
-      // Unit tests go here
       it('{{{description}}}', function() {
-        assert.equal(true, false);
+        expect('foo').toEqual('bar');
       });
     });
     """
@@ -91,7 +85,7 @@ $(document).on 'ready page:load', ->
 
     func = getFunctionInfo()
 
-    testEditor.setValue(Mustache.render(mochaTemplate, func))
+    testEditor.setValue(Mustache.render(jasmineTemplate, func))
 
   renderSignatureAndTests = ->
     renderSignature()
