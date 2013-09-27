@@ -1,4 +1,6 @@
 $(document).on 'ready page:load', ->
+  return if !window.location.pathname.match(/implementations\/new$/)
+
   implEditor = patchwork.getOrCreateEditor('implementation_source')
   testEditor = patchwork.getOrCreateEditor('tests')
 

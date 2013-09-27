@@ -17,3 +17,5 @@
 //= require codemirror/javascript
 //= require mustache
 //= require patchwork
+//= require function
+//= require implementation

@@ -1,4 +1,6 @@
 $(document).on 'ready page:load', ->
+  return if window.location.pathname != '/functions/new'
+
   signatureEditor = patchwork.getOrCreateEditor('function_signature')
   testEditor = patchwork.getOrCreateEditor('function_tests')
 
