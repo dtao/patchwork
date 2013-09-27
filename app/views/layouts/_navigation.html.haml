@@ -1,0 +1,14 @@
+.navbar.navbar-fixed-top.navbar-inverse
+  .container
+    %ul.nav.navbar-nav
+      %li= link_to(rainbowify('Patchwork'), root_url(:protocol => 'http'), :class => 'navbar-brand')
+      %li= link_to('Functions', functions_url(:protocol => 'http'))
+      %li= link_to('Users', users_url(:protocol => 'http'))
+
+    %ul.nav.navbar-nav.pull-right
+      - if logged_in?
+        %li.navbar-text= "Logged in as #{current_user.user_name}."
+        %li= link_to('Log out', logout_path)
+      - else
+        %li= link_to('Log in', login_path)
+        %li= link_to('Register', register_path)

@@ -7,20 +7,7 @@
     = csrf_meta_tags
 
   %body
-    .navbar.navbar-fixed-top.navbar-inverse
-      .container
-        %ul.nav.navbar-nav
-          %li= link_to(rainbowify('Patchwork'), root_path, :class => 'navbar-brand')
-          %li= link_to('Functions', functions_path)
-          %li= link_to('Users', users_path)
-
-        %ul.nav.navbar-nav.pull-right
-          - if logged_in?
-            %li.navbar-text= "Logged in as #{current_user.user_name}."
-            %li= link_to('Log out', logout_path)
-          - else
-            %li= link_to('Log in', login_path)
-            %li= link_to('Register', register_path)
+    = render(:partial => 'layouts/navigation')
 
     .container
       - if flash[:notice]
