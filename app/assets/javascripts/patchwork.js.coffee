@@ -10,6 +10,9 @@ window.patchwork =
       readOnly: !!textarea.getAttribute('data-readonly')
     })
 
+  delay: (delay, fn) ->
+    setTimeout(fn, delay)
+
 $(document).on 'ready page:load', ->
   patchwork.editors = {}
 

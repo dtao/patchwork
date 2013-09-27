@@ -23,4 +23,7 @@ this.onmessage = (e) ->
 
       postMessage(JSON.stringify(messageData))
 
+    reportSuiteResults: ->
+      postMessage(JSON.stringify({ finished: true }))
+
   jasmineEnv.execute()
