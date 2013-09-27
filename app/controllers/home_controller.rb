@@ -17,7 +17,7 @@ class HomeController < ApplicationController
       session[:user_id] = user.id
 
       flash[:notice] = "Welcome, #{user.real_name}!"
-      redirect_to(root_path)
+      redirect_to(root_url(:protocol => 'http'))
     end
   end
 
@@ -39,7 +39,7 @@ class HomeController < ApplicationController
       session[:user_id] = user.id
 
       flash[:notice] = "Welcome back, #{user.real_name}!"
-      redirect_to(root_path)
+      redirect_to(root_url(:protocol => 'http'))
     end
   end
 
@@ -48,7 +48,7 @@ class HomeController < ApplicationController
     session.delete(:user_id)
 
     flash[:notice] = "You've successfully logged out."
-    redirect_to(root_path)
+    redirect_to(root_url(:protocol => 'http'))
   end
 
   private
