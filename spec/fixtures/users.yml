@@ -3,3 +3,15 @@ dan:
   real_name: Dan Tao
   email: daniel.tao@gmail.com
   password_digest: horsey
+
+joe:
+  user_name: joe
+  real_name: Joe Schmoe
+  email: joe.schmoe@gmail.com
+  password_digest: monkey
+
+johnny:
+  user_name: jqp
+  real_name: Johnny Q. Public
+  email: johnny.q.public@gmail.com
+  password_digest: bunny
