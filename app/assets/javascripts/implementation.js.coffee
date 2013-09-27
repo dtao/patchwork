@@ -27,12 +27,18 @@ $(document).on 'ready page:load', ->
 
       listItem = $('<div class="list-group-item">')
         .addClass(if result.failures.length == 0 then 'success' else 'failure')
-        .text(result.name)
         .insertBefore(loadingItem)
 
       resultIcon = $('<span class="pull-right">')
         .addClass(if result.failures.length == 0 then 'icon-emo-thumbsup' else 'icon-emo-cry')
         .appendTo(listItem)
+
+      itemHeader = $('<h4 class="list-group-item-heading">')
+        .text(result.name)
+        .appendTo(listItem)
+
+      for failure in result.failures
+        $('<p class="list-group-item-text">').text(failure).appendTo(listItem)
 
     worker.addEventListener 'error', (e) ->
       clearTimeout(timeout) if timeout?
