@@ -49,13 +49,16 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development, :test do
+  gem 'rspec-rails', '~> 2.14'
+end
+
 group :development do
   gem 'query_diet', :git => 'https://github.com/dtao/query_diet.git'
 end
 
 group :test do
   gem 'debugger'
-  gem 'rspec-rails'
 end
 
 group :production do
