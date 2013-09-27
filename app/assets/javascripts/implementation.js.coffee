@@ -13,7 +13,7 @@ $(document).on 'ready page:load', ->
     loadingItem = $('<div class="loading">')
       .appendTo(testResults)
 
-    loadingIcon = $('<span class="icon-spin5">')
+    loadingIcon = $('<span class="icon-spin5 animate-spin">')
       .appendTo(loadingItem)
 
     worker.addEventListener 'message', (e) ->
