@@ -1,4 +1,4 @@
-importScripts('jasmine.js');
+importScripts('/javascripts/jasmine.js');
 
 function getSpecFailures(spec) {
   var resultItems = spec.results().getItems(),

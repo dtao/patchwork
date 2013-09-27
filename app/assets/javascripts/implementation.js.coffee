@@ -7,7 +7,7 @@ $(document).on 'ready page:load', ->
   runTests = ->
     testResults = $('#test-results').empty()
 
-    worker = new Worker('/assets/testRunner.js')
+    worker = new Worker('/javascripts/testRunner.js')
     timeout = null
 
     loadingItem = $('<div class="loading">')
