@@ -1,10 +1,9 @@
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'yaml'
+
 def create_user(user_name, real_name, email)
   User.create!({
     :user_name => user_name,
@@ -15,146 +14,52 @@ def create_user(user_name, real_name, email)
   })
 end
 
-def create_function(user, name, description, signature)
-  user.functions.create!({
-    :name => name,
-    :description => description,
-    :signature => signature
+def random_user
+  @users ||= User.all
+  @users[rand(@users.length)]
+end
+
+def path(relative)
+  File.join(File.dirname(__FILE__), *relative.split('/'))
+end
+
+def extension_for_language(lang)
+  case lang
+  when 'javascript' then return 'js'
+  when 'ruby' then return 'rb'
+  else raise 'WTF?'
+  end
+end
+
+create_user('dtao', 'Dan Tao', 'daniel.tao@gmail.com')
+create_user('joe', 'Joe Schmoe', 'joe.schmoe@gmail.com')
+create_user('jqp', 'Johnny Q. Public', 'johnny.q.public@gmail.com')
+
+Dir[path('seeds/*/*')].each do |dir|
+  name  = File.basename(dir)
+  lang  = File.basename(File.dirname(dir))
+  ext   = extension_for_language(lang)
+  info  = YAML.load_file(File.join(dir, "#{name}.yml"))
+  tests = File.read(File.join(dir, "tests.#{ext}"))
+
+  func = random_user.functions.create!({
+    :name        => name,
+    :description => info['description'],
+    :language    => lang,
+    :tests       => tests
   })
+
+  puts "Created function '#{func.name}'."
+
+  Dir["#{dir}/#{name}*.#{ext}"].each do |impl|
+    source = File.read(impl)
+
+    user = random_user
+    user.implementations.create!({
+      :function => func,
+      :source   => source
+    })
+
+    puts "Created implementation '#{name}/#{user.user_name}'."
+  end
 end
-
-def add_tests(function, tests)
-  function.tests = tests
-  function.save!
-end
-
-def add_implementation(user, function, source)
-  function.implementations.create!({
-    :user => user,
-    :source => source
-  })
-end
-
-dan = create_user('dtao', 'Dan Tao', 'daniel.tao@gmail.com')
-joe = create_user('joe', 'Joe Schmoe', 'joe.schmoe@gmail.com')
-jqp = create_user('jqp', 'Johnny Q. Public', 'johnny.q.public@gmail.com')
-
-chunk = create_function dan, 'chunk', 'Split an array into N-sized chunks', <<-JAVASCRIPT
-/**
- * Split an array into N-sized chunks
- *
- * @param {array} array
- * @param {number} chunkSize
- * @return {array}
- */
-function chunk(array, chunkSize) {
-  // Implementation goes here
-}
-JAVASCRIPT
-
-add_tests chunk, <<-JAVASCRIPT
-describe('chunk', function() {
-  it('has no effect on an empty array', function() {
-    expect(chunk([], 3)).toEqual([]);
-  });
-
-  it('does not modify the array in-place', function() {
-    var array = [1, 2, 3];
-    chunk(array, 2);
-    expect(array).toEqual([1, 2, 3]);
-  });
-
-  it('splits an array into chunks of the specified size', function() {
-    expect(chunk([1, 2, 3, 4], 2)).toEqual([[1, 2], [3, 4]]);
-  });
-
-  it('includes a partial final chunk, if necessary', function() {
-    expect(chunk([1, 2, 3], 2)).toEqual([[1, 2], [3]]);
-  });
-});
-JAVASCRIPT
-
-add_implementation dan, chunk, <<-JAVASCRIPT
-function chunk(array, chunkSize) {
-  var chunks = [],
-      chunk  = [];
-  for (var i = 0; i < array.length; ++i) {
-    chunk.push(array[i]);
-    if (chunk.length === chunkSize) {
-      chunks.push(chunk);
-      chunk = [];
-    }
-  }
-
-  if (chunk.length > 0) {
-    chunks.push(chunk);
-  }
-
-  return chunks;
-}
-JAVASCRIPT
-
-compare_arrays = create_function dan, 'compareArrays', 'Compare two arrays to see if they contain the same elements', <<-JAVASCRIPT
-/**
- * Compare two arrays to see if they contain the same elements
- *
- * @param {array} arr1
- * @param {array} arr2
- * @return {boolean}
- */
-function compareArrays(arr1, arr2) {
-  // Implementation goes here
-}
-JAVASCRIPT
-
-add_implementation joe, compare_arrays, <<-JAVASCRIPT
-function compareArrays(arr1, arr2) {
-  return arr1.join(',') === arr2.join(',');
-}
-JAVASCRIPT
-
-add_implementation dan, compare_arrays, <<-JAVASCRIPT
-function compareArrays(arr1, arr2) {
-  if (arr1.length !== arr2.length) {
-    return false;
-  }
-
-  for (var i = 0; i < arr1.length; ++i) {
-    if (arr1[i] !== arr2[i]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-JAVASCRIPT
-
-reverse_string = create_function joe, 'reverseString', 'Return a reversed copy of a string', <<-JAVASCRIPT
-/**
- * Return a reversed copy of a string
- *
- * @param {string} str
- * @return {string}
- */
-function reverseString(str) {
-  // Implementation goes here
-}
-JAVASCRIPT
-
-add_tests reverse_string, <<-JAVASCRIPT
-describe('reverseString', function() {
-  it('has no effect on the empty string', function() {
-    expect(reverseString('')).toEqual('');
-  });
-
-  it('reverses the characters in a string', function() {
-    expect(reverseString('hello')).toEqual('olleh');
-  });
-
-  it('does not modify the string in-place (as if that were even possible in JavaScript)', function() {
-    var foo = 'foo';
-    reverseString(foo);
-    expect(foo).toEqual('foo');
-  });
-});
-JAVASCRIPT
