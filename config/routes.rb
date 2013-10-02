@@ -22,8 +22,11 @@ Patchwork::Application.routes.draw do
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
   resources :users
-  resources :functions
+  resources :functions, :constraints => { :id => /\d+/ }, :except => :new
   resources :implementations
+
+  get 'functions/:language' => 'functions#by_language', :as => :functions_by_language
+  get 'functions/:language/new' => 'functions#new', :as => :new_function
 
   # Example resource route with options:
   #   resources :products do

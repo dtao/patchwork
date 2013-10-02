@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require codemirror
 //= require codemirror/javascript
+//= require codemirror/ruby
 //= require mustache
 //= require patchwork
 //= require function

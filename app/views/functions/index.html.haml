@@ -1,6 +1,13 @@
-%h2 Functions
+%h2 Choose a language
 
-= render(:partial => 'table')
+%table.languages.table.table-striped
+  %thead
+    %tr
+      %th Languages
+      %th Functions
 
-- if logged_in?
-  %p= link_to('Create a function', new_function_path, :class => 'btn btn-info')
+  %tbody
+    - @languages.each do |language, count|
+      %tr
+        %td= link_to(language, functions_by_language_path(language))
+        %td= count

@@ -10,6 +10,6 @@
 
         .form-group
           = f.label(:tests)
-          = f.text_area(:tests, :class => 'editor')
+          = f.text_area(:tests, :class => 'editor', :'data-language' => @function.language)
 
   = submit_tag('Create', :class => 'btn btn-primary')

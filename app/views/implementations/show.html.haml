@@ -6,6 +6,6 @@
     %a.submit-form(href="javascript:void(0);") <span class="icon-thumbs-up"></span>
     %small= pluralize(@implementation.score, 'upvote')
 
-%textarea.editor(data-readonly="true")= find_and_preserve(@implementation.source)
+%textarea.editor(data-readonly="true" data-language="#{@implementation.function.language}")= find_and_preserve(@implementation.source)
 
 = comments_section(comment_on_implementation_path(@implementation))

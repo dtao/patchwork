@@ -5,7 +5,7 @@
 .row
   .col-lg-6
     %h3 Tests
-    %textarea#function-tests.editor(data-readonly="true")= @function.tests
+    %textarea#function-tests.editor(data-readonly="true" data-language="#{@function.language}")= @function.tests
 
   .col-lg-6
     %h3 Implementations

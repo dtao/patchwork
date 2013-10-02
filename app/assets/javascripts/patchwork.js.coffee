@@ -5,7 +5,7 @@ window.patchwork =
     textarea = document.getElementById(textarea) if typeof textarea == 'string'
 
     patchwork.editors[textarea.id] ?= CodeMirror.fromTextArea(textarea, {
-      mode: 'javascript',
+      mode: textarea.getAttribute('data-language'),
       lineNumbers: true,
       readOnly: !!textarea.getAttribute('data-readonly')
     })

@@ -1,10 +1,15 @@
 class FunctionsController < ApplicationController
   def index
-    @functions = Function.order(:id => :desc)
+    @languages = Function.group(:language).count
+  end
+
+  def by_language
+    @language = params[:language]
+    @functions = Function.where(:language => params[:language]).order(:id => :desc)
   end
 
   def new
-    @function = Function.new
+    @function = Function.new(:language => params[:language])
   end
 
   def create
