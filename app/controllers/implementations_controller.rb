@@ -1,7 +1,7 @@
 class ImplementationsController < ApplicationController
   def new
     @function = Function.find(params[:id])
-    @implementation = Implementation.new(:function => @function, :source => @function.signature)
+    @implementation = Implementation.new(:function => @function)
   end
 
   def create

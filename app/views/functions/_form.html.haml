@@ -2,13 +2,7 @@
   .row
     .col-lg-6
       = text_input(:name, :function, :placeholder => 'A short name for the function')
-      = text_input(:description, :function, :placeholder => 'Describe how the function should work')
-      = text_input(:args, :function, :placeholder => 'A comma-separated list; e.g., "values:array, recursive:boolean"')
-      = text_input(:return, :function, :placeholder => "The function's return type")
-
-      .form-group
-        = f.label(:signature)
-        = f.text_area(:signature, :class => 'editor', :'data-readonly' => true)
+      = text_area_input(:description, :function, :placeholder => 'Describe how the function should work')
 
     .col-lg-6
       %fieldset
