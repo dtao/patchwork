@@ -29,15 +29,15 @@ ActiveRecord::Schema.define(version: 20130926145446) do
   create_table "functions", force: true do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.string   "signature"
-    t.string   "description"
-    t.string   "test_framework"
+    t.string   "language"
+    t.text     "description"
     t.text     "tests"
     t.integer  "implementations_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "functions", ["language"], name: "index_functions_on_language", using: :btree
   add_index "functions", ["name"], name: "index_functions_on_name", unique: true, using: :btree
 
   create_table "implementations", force: true do |t|
