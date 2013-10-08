@@ -1,4 +1,4 @@
 %header
-  %h1 Top users
+  %h1 Top Users
 
-= render_table('users', @users, [:name, :score])
+= render_table('users', @users, [:name, :patches_count, :implementations_count, :score])

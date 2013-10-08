@@ -1,0 +1,17 @@
+%header
+  %h1
+    = image_tag(@user.gravatar_url(:size => 160, :default => 'identicon'))
+    = @user.name
+    %small= "member since #{friendly_date(@user.created_at)}"
+
+%section.content
+  - if @patches.any?
+    %h2 Recent Patches
+    = render_table('patches', @patches, [:name, :implementations_count])
+
+  - if @implementations.any?
+    %h2 Top Implementations
+    = render_table('implementations', @implementations, [:label, :score])
+
+%section.actions
+  = link_to('Back', users_path)

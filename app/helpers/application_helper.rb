@@ -12,18 +12,18 @@ module ApplicationHelper
 
   # ----- Format-related helpers -----
 
-  def verb_for_record(record)
-    if record.new_record? then 'Create' else 'Save' end
+  def friendly_date(date)
+    time_ago_in_words(date) + ' ago'
   end
 
   # ----- Reusable HTML-related helpers -----
 
-  def render_table(table_type, records, columns)
+  def render_table(table_type, records, columns, &block)
     render(:partial => 'layouts/table', :locals => {
       :table_type => table_type,
       :records    => records,
       :columns    => columns
-    })
+    }, &block)
   end
 
   def form_field(f, field_type, field_name, options={})
