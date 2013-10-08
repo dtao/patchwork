@@ -7,8 +7,15 @@ $(document).on('ready page:change', function() {
     return setTimeout(fn, delay);
   }
 
+  function showNotices() {
+    $('#notice, #error').css({ bottom: 0 });
+    afterDelay(3000, hideNotices);
+  }
+
   function hideNotices() {
-    $('#notice, #error').slideUp();
+    $('#notice, #error').slideUp(function() {
+      $(this).remove();
+    });
   }
 
   function nextEditorId() {
@@ -43,7 +50,7 @@ $(document).on('ready page:change', function() {
     initializeCodeEditor(this);
   });
 
-  afterDelay(3000, hideNotices);
+  showNotices();
 
   // ----- Page-specific initialization -----
 
