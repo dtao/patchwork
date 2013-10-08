@@ -18,12 +18,19 @@ module ApplicationHelper
 
   # ----- Reusable HTML-related helpers -----
 
-  def render_table(table_type, records, columns, &block)
+  def render_table(table_type, records, columns)
     render(:partial => 'layouts/table', :locals => {
       :table_type => table_type,
       :records    => records,
       :columns    => columns
-    }, &block)
+    })
+  end
+
+  def render_list(list_type, items)
+    render(:partial => 'layouts/list', :locals => {
+      :list_type  => list_type,
+      :items      => items
+    })
   end
 
   def form_field(f, field_type, field_name, options={})
