@@ -5,8 +5,9 @@ class Patch < ActiveRecord::Base
 
   LANGUAGES = ['javascript', 'ruby']
 
+  validates_presence_of  :user_id,                    :message => 'You must be logged in to create a patch.'
   validates_inclusion_of :language, :in => LANGUAGES, :message => "The only supported languages are #{LANGUAGES.to_sentence}"
-  validates_presence_of  :name,                       :message => "You must provide a name for the patch."
+  validates_presence_of  :name,                       :message => 'You must provide a name for the patch.'
 
   strip_attributes
 
