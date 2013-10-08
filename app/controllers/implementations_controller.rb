@@ -10,7 +10,7 @@ class ImplementationsController < ApplicationController
   end
 
   def create
-    redirect_to(current_user.implementations.create!(implementation_params))
+    redirect_to(Implementation.create!(implementation_params))
   end
 
   private
