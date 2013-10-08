@@ -1,0 +1,25 @@
+body[data-page="patches-new"] {
+  fieldset.tests {
+    .test-case {
+      @extend .row;
+      margin-bottom: $padding-base-vertical;
+
+      .input, .output {
+        @extend .col-lg-6;
+
+        input[type="text"] {
+          @extend .form-control;
+        }
+      }
+    }
+
+    .options {
+      margin-top: $padding-base-vertical;
+      margin-bottom: $padding-base-vertical;
+    }
+
+    .editor {
+      display: none;
+    }
+  }
+}

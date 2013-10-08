@@ -18,6 +18,10 @@ module ApplicationHelper
 
   # ----- Reusable HTML-related helpers -----
 
+  def empty_link(text, options={})
+    link_to(text, 'javascript:void(0);', options)
+  end
+
   def render_table(table_type, records, columns, &block)
     block ||= lambda { |*args| }
 

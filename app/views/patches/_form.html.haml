@@ -3,7 +3,25 @@
   = form_field(f, :text_field, :description, :placeholder => 'A brief description explaining what the function does')
   = form_select(f, :language, Patch::LANGUAGES)
   = form_field(f, :text_field, :tags, :placeholder => '(Optional) comma-delimited list of tags, e.g. "strings, arrays"')
-  = code_editor(f, :tests, 'javascript', :placeholder => 'Write some tests')
+
+  %fieldset.tests
+    %legend Test Cases
+
+    .test-cases
+      .test-case
+        .input= text_field_tag(:'test_cases[][input]', nil, :placeholder => 'Input')
+        .output= text_field_tag(:'test_cases[][output]', nil, :placeholder => 'Expected output')
+
+      .options
+        = empty_link('Add another test case', :class => 'add-test-case')
+        or
+        = empty_link('Write tests manually', :class => 'write-tests-manually')
+
+    .editor
+      = code_editor(f, :tests, 'javascript', :placeholder => 'Write some tests')
+
+      .options
+        = empty_link('Simple test cases', :class => 'simple-test-cases')
 
   .actions
     = f.submit

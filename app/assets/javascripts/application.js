@@ -17,5 +17,6 @@
 //= require codemirror/javascript
 //= require codemirror/ruby
 //= require codemirror/placeholder
+//= require mustache
 //= require cleanSlate
 //= require_tree .
