@@ -1,25 +1,23 @@
-= form_tag do
-  %fieldset
-    %legend Register
+%header
+  %h1 Register
 
-    .form-group
-      = label_tag(:user_name)
-      = text_field_tag(:'user[user_name]', nil, :class => 'form-control')
+= form_for(register_path) do
+  .field
+    = label_tag(:name)
+    = text_field_tag(:name)
 
-    .form-group
-      = label_tag(:real_name)
-      = text_field_tag(:'user[real_name]', nil, :class => 'form-control')
+  .field
+    = label_tag(:email)
+    = text_field_tag(:email)
 
-    .form-group
-      = label_tag(:email)
-      = text_field_tag(:'user[email]', nil, :class => 'form-control')
+  .field
+    = label_tag(:password)
+    = password_field_tag(:password)
 
-    .form-group
-      = label_tag(:password)
-      = password_field_tag(:'user[password]', nil, :class => 'form-control')
+  .field
+    = label_tag(:password_confirmation)
+    = password_field_tag(:password_confirmation)
 
-    .form-group
-      = label_tag(:password_confirmation)
-      = password_field_tag(:'user[password_confirmation]', nil, :class => 'form-control')
-
-    = submit_tag('Register', :class => 'btn btn-primary')
+  .actions
+    = submit_tag('Register')
+    = link_to('Log in', login_path)

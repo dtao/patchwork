@@ -16,7 +16,6 @@
 //= require codemirror
 //= require codemirror/javascript
 //= require codemirror/ruby
-//= require mustache
-//= require patchwork
-//= require function
-//= require implementation
+//= require codemirror/placeholder
+//= require cleanSlate
+//= require_tree .

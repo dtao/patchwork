@@ -1,0 +1,24 @@
+%header
+  %h1
+    = @patch.name
+    = link_to('Edit', edit_patch_path(@patch)) if @patch.user == current_user
+
+  %p.description= @patch.description
+
+  .details
+    %span.language= @patch.language
+    - @patch.each_tag do |tag|
+      %span.tag= tag
+
+%section.content
+  = form_for(@patch) do |f|
+    = code_editor(f, :tests, @patch.language, :'data-readonly' => true)
+
+%h2 Implementations
+
+- @patch.implementations.each do |impl|
+  %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source
+
+%section.actions
+  = link_to('Implement', new_implementation_path(@patch))
+  = link_to('Back', patches_path)

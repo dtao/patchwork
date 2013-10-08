@@ -1,0 +1,11 @@
+body > main > header {
+  .details {
+    span.language {
+      @extend .label, .label-primary;
+    }
+
+    span.tag {
+      @extend .label, .label-default;
+    }
+  }
+}

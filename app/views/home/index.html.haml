@@ -1,18 +1,10 @@
-.page-header
-  %h1= link_to(rainbowify('Patchwork'), root_path)
-  %h2 A function-as-library experiment
+%header
+  %h1 Patchwork
 
-- if logged_in?
-  .row
-    .col-lg-6
-      %h2 My Functions
-      = render(:partial => 'functions/table')
+%p The current landscape is this: we have libraries, library versions, and dependency management systems built around these versions.
 
-    .col-lg-6
-      %h2 My Implementations
-      = render(:partial => 'implementations/table')
+%p The most altruistic of library developers take the time to split their libraries up into reusable modules, so that application developers don't need to bloat their projects with large dependencies just for small bits of convenient functionality.
 
-- else
-  = render(:partial => 'introduction')
+%p What if we changed the paradigm, so instead of a <em>library</em>, the fundamental unit of shared code were simply a <em>function</em>?
 
-  %p!= "#{link_to('Log in', login_path)} or #{link_to('register', register_path)} to continue."
+%p That's the premise.

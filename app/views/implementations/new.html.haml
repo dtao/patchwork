@@ -1,23 +1,17 @@
-%h2= "Implement #{@function.name}"
-%p.lead= @function.description
+%header
+  %h1
+    Implement
+    = link_to(@patch.name, @patch)
 
-= form_for(@implementation) do |f|
-  = f.hidden_field(:function_id)
+%section.implementation
+  %section.source
+    = form_for(@implementation) do |f|
+      = f.hidden_field(:patch_id)
+      = code_editor(f, :source, @patch.language)
 
-  .row
-    .col-lg-6
-      = text_input(:name, :implementation, :placeholder => 'An optional name for this implementation')
+      .actions
+        = f.submit
 
-      .form-group
-        = f.label(:source)
-        = f.text_area(:source, :class => 'editor')
-
-    .col-lg-6
-      .form-group
-        = f.label(:tests)
-        = text_area_tag(:tests, @function.tests, :class => 'editor', :'data-readonly' => true)
-
-      #test-results.list-group
-
-  = f.button('Test', :id => 'test-button', :class => 'btn btn-warning')
-  = f.submit('Submit', :class => 'btn btn-primary')
+  %section.tests
+    = form_for(@patch) do |f|
+      = code_editor(f, :tests, @patch.language)

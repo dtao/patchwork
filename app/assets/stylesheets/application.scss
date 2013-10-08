@@ -1,0 +1,98 @@
+@import "flatly";
+@import "twitter/bootstrap";
+@import "codemirror";
+
+// ----- Site layout -----
+
+.container {
+  width: 75%;
+  max-width: 1600px;
+}
+
+body > nav {
+  @extend .navbar, .navbar-default, .navbar-static-top;
+
+  ul {
+    @extend .nav, .navbar-nav;
+
+    &:first-child > li:first-child a {
+      @extend .navbar-brand;
+    }
+  }
+}
+
+body > main {
+  @extend .container;
+
+  & > header {
+    @extend .page-header;
+
+    p {
+      @extend .lead;
+    }
+  }
+}
+
+#session-links {
+  @extend .navbar-right;
+}
+
+#notice {
+  @extend .alert, .alert-info;
+}
+
+#error {
+  @extend .alert, .alert-danger;
+}
+
+// ----- General styling -----
+
+table {
+  @extend .table, .table-striped;
+
+  th:last-child,
+  td:last-child {
+    text-align: right;
+  }
+}
+
+button, .actions > a {
+  @extend .btn, .btn-info;
+}
+
+h1 > a[href*="/edit"] {
+  @extend .btn, .btn-sm, .btn-warning;
+}
+
+input[type="submit"] {
+  @extend .btn, .btn-primary;
+}
+
+form {
+  .field {
+    @extend .form-group;
+
+    input[type="text"], input[type="password"], select, textarea {
+      @extend .form-control;
+    }
+  }
+}
+
+.CodeMirror {
+  height: auto;
+}
+
+.CodeMirror-scroll {
+  min-height: 200px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
+.CodeMirror-empty {
+  color: $text-muted;
+}
+
+// ----- Page-specific styles -----
+
+@import "show_patch";
+@import "new_implementation";

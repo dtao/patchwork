@@ -1,0 +1,7 @@
+section.implementation {
+  @extend .row;
+
+  .source, .tests {
+    @extend .col-lg-6;
+  }
+}

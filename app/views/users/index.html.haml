@@ -1,3 +1,4 @@
-%h2 Users
+%header
+  %h1 Top users
 
-= render(:partial => 'table')
+= render_table('users', @users, [:name, :score])

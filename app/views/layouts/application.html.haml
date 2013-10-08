@@ -2,19 +2,21 @@
 %html
   %head
     %title Patchwork
-    = stylesheet_link_tag("application", :media => "all", "data-turbolinks-track" => true)
-    = javascript_include_tag("application", "data-turbolinks-track" => true)
+    = stylesheet_link_tag('application', :media => 'all', :'data-turbolinks-track' => true)
+    = javascript_include_tag('application', :'data-turbolinks-track' => true)
     = csrf_meta_tags
 
   %body
-    = render(:partial => 'layouts/navigation')
+    %nav
+      .container
+        %ul
+          %li= link_to('Patchwork', root_path)
+          %li= link_to('Patches', patches_path)
+          %li= link_to('Users', users_path)
 
-    .container
-      - if flash[:notice]
-        .alert.alert-info= flash[:notice]
-      - elsif flash[:error]
-        .alert.alert-danger= flash[:error]
+        = session_links
+
+    %main
+      = notices
 
       = yield
-
-    = query_diet_widget if Rails.env.development?

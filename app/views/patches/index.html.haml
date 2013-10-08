@@ -1,0 +1,8 @@
+%header
+  %h1 Recent patches
+
+%section.content
+  = render_table('patches', @patches, [:name, :language, :implementations_count])
+
+%section.actions
+  = link_to('Create a new patch', new_patch_path)

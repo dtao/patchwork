@@ -11,62 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926145446) do
+ActiveRecord::Schema.define(version: 20131007222455) do
 
-  create_table "comments", force: true do |t|
+  create_table "implementations", force: true do |t|
     t.integer  "user_id"
-    t.integer  "commentable_id"
-    t.string   "commentable_type"
-    t.text     "content"
+    t.integer  "patch_id"
+    t.text     "source"
+    t.integer  "score",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["commentable_id"], name: "index_comments_on_commentable_id", using: :btree
-  add_index "comments", ["commentable_type"], name: "index_comments_on_commentable_type", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+  add_index "implementations", ["patch_id"], name: "index_implementations_on_patch_id", using: :btree
+  add_index "implementations", ["user_id"], name: "index_implementations_on_user_id", using: :btree
 
-  create_table "functions", force: true do |t|
+  create_table "patches", force: true do |t|
     t.integer  "user_id"
-    t.string   "name"
     t.string   "language"
-    t.text     "description"
+    t.string   "name"
+    t.string   "description"
+    t.string   "tags"
     t.text     "tests"
     t.integer  "implementations_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "functions", ["language"], name: "index_functions_on_language", using: :btree
-  add_index "functions", ["name"], name: "index_functions_on_name", unique: true, using: :btree
-
-  create_table "implementations", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "function_id"
-    t.string   "name"
-    t.text     "description"
-    t.text     "source"
-    t.integer  "score",       default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "implementations", ["function_id"], name: "index_implementations_on_function_id", using: :btree
-  add_index "implementations", ["name"], name: "index_implementations_on_name", using: :btree
-  add_index "implementations", ["user_id"], name: "index_implementations_on_user_id", using: :btree
+  add_index "patches", ["language"], name: "index_patches_on_language", using: :btree
+  add_index "patches", ["name"], name: "index_patches_on_name", using: :btree
+  add_index "patches", ["tags"], name: "index_patches_on_tags", using: :btree
+  add_index "patches", ["user_id"], name: "index_patches_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "user_name"
-    t.string   "real_name"
+    t.string   "name"
     t.string   "email"
     t.string   "password_digest"
-    t.integer  "score",           default: 0
+    t.integer  "score",                 default: 0
+    t.integer  "patches_count",         default: 0
+    t.integer  "implementations_count", default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", using: :btree
-  add_index "users", ["user_name"], name: "index_users_on_user_name", unique: true, using: :btree
 
   create_table "votes", force: true do |t|
     t.integer  "user_id"

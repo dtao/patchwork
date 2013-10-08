@@ -1,0 +1,20 @@
+chunk/dan:
+  user: dan
+  source: |
+    function chunk(array, N) {
+      var chunks = [],
+          chunk  = [];
+      for (var i = 0; i < array.length; ++i) {
+        chunk.push(array[i]);
+        if (chunk.length === N) {
+          chunks.push(chunk);
+          chunk = [];
+        }
+      }
+      
+      if (chunk.length > 0) {
+        chunks.push(chunk);
+      }
+      
+      return chunks;
+    }

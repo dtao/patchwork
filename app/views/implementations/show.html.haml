@@ -1,11 +1,7 @@
-%h2
-  = link_to(@implementation.function.name, @implementation.function)
-  = "/"
-  = link_to(@implementation.user.user_name, @implementation.user)
-  = form_tag(vote_url(@implementation), :style => 'display: inline-block;') do
-    %a.submit-form(href="javascript:void(0);") <span class="icon-thumbs-up"></span>
-    %small= pluralize(@implementation.score, 'upvote')
+%header
+  %h1
+    = link_to(@patch.name, @patch)
+    = link_to(@implementation.user.name)
 
-%textarea.editor(data-readonly="true" data-language="#{@implementation.function.language}")= find_and_preserve(@implementation.source)
-
-= comments_section(comment_on_implementation_path(@implementation))
+= form_for(@implementation) do |f|
+  = code_editor(f, :source, @patch.language, :'data-readonly' => true)

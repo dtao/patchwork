@@ -1,0 +1,4 @@
+chunk:
+  name: chunk
+  language: javascript
+  description: split an array into N-sized chunks

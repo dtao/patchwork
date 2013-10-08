@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe Implementation do
-  fixtures(:users)
+describe Patch do
+  fixtures(:users, :implementations)
 
-  it 'caches score based on the number of votes it has received' do
-    dan      = users(:dan)
-    function = dan.functions.create!(:name => 'function', :description => 'description')
-    impl     = dan.implementations.create!(:function => function, :source => 'foo')
-
-    impl.votes.create(:user => users(:joe))
-    impl.reload.score.should == 1
+  describe '#score' do
+    it 'provides the number of upvotes an implementation has received' do
+      expect_attribute_change(implementations('chunk/dan'), :score, 2) do |impl|
+        create_user!('joe').vote!(impl)
+        create_user!('mike').vote!(impl)
+      end
+    end
   end
 end

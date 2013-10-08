@@ -1,0 +1,9 @@
+= form_for(@patch) do |f|
+  = form_field(f, :text_field, :name, :placeholder => 'A memorable name for the patch (function)')
+  = form_field(f, :text_field, :description, :placeholder => 'A brief description explaining what the function does')
+  = form_select(f, :language, Patch::LANGUAGES)
+  = form_field(f, :text_field, :tags, :placeholder => '(Optional) comma-delimited list of tags, e.g. "strings, arrays"')
+  = code_editor(f, :tests, 'javascript', :placeholder => 'Write some tests')
+
+  .actions
+    = f.submit

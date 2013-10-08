@@ -1,29 +1,52 @@
 module ApplicationHelper
-  def comments_section(path)
-    render(:partial => 'layouts/comments', :locals => { :path => path })
+
+  # ----- Sections -----
+
+  def session_links
+    render(:partial => 'home/session_links')
   end
 
-  def field_input(partial, label, record_type=nil, options={})
-    render(:partial => "layouts/#{partial}_input", :locals => {
-      :label => label,
-      :field => record_type ? :"#{record_type}[#{label}]" : label,
-      :options => options
+  def notices
+    render(:partial => 'home/notices')
+  end
+
+  # ----- Format-related helpers -----
+
+  def verb_for_record(record)
+    if record.new_record? then 'Create' else 'Save' end
+  end
+
+  # ----- Reusable HTML-related helpers -----
+
+  def render_table(table_type, records, columns)
+    render(:partial => 'layouts/table', :locals => {
+      :table_type => table_type,
+      :records    => records,
+      :columns    => columns
     })
   end
 
-  def text_input(label, record_type=nil, options={})
-    field_input('text', label, record_type, options)
+  def form_field(f, field_type, field_name, options={})
+    render(:partial => 'layouts/form_field', :locals => {
+      :f          => f,
+      :field_type => field_type,
+      :field_name => field_name,
+      :options    => options
+    })
   end
 
-  def password_input(label, record_type=nil, options={})
-    field_input('password', label, record_type, options)
+  def form_select(f, field_name, options)
+    render(:partial => 'layouts/form_select', :locals => {
+      :f          => f,
+      :field_name => field_name,
+      :options    => options_for_select(options)
+    })
   end
 
-  def text_area_input(label, record_type=nil, options={})
-    field_input('text_area', label, record_type, options)
-  end
-
-  def rainbowify(text)
-    text.each_char.map { |char| "<span>#{char}</span>" }.join('').html_safe
+  def code_editor(f, field_name, language, options={})
+    form_field(f, :text_area, field_name, {
+      :class           => 'code-editor',
+      :'data-language' => language
+    }.merge(options))
   end
 end
