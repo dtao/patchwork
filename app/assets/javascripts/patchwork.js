@@ -89,6 +89,10 @@ $(document).on('ready page:change', function() {
       var input  = $('.input input', this).val(),
           output = $('.output input', this).val();
 
+      if (!input || !output) {
+        return;
+      }
+
       return {
         input: input,
         output: output,
@@ -110,6 +114,15 @@ $(document).on('ready page:change', function() {
     getEditorForTextarea('patch_tests').setValue(testSource);
   }
 
+  function addNewTestCase() {
+    var testCase = $('.test-cases').find('.test-case:last');
+
+    // Who invented jQuery's .end() method? Seriously.
+    // "Let's make it *dangerously* easy to write one-liners!"
+    // Anyway. I'm using it BECAUSE IT EXISTS.
+    testCase.clone().find('input').val('').end().insertAfter(testCase);
+  }
+
   $('#patch_name').on('change', updateTestEditor);
 
   $('#patch_language').on('change', function() {
@@ -117,15 +130,7 @@ $(document).on('ready page:change', function() {
     updateTestEditor();
   });
 
-  $('.add-test-case').on('click', function() {
-    var options  = $(this).closest('.options'),
-        testCase = options.closest('.test-cases').find('.test-case:last');
-
-    // Who invented jQuery's .end() method? Seriously.
-    // "Let's make it *dangerously* easy to write one-liners!"
-    // Anyway. I'm using it BECAUSE IT EXISTS.
-    testCase.clone().find('input').val('').end().insertBefore(options);
-  });
+  $('.add-test-case').on('click', addNewTestCase);
 
   $('.write-tests-manually').on('click', function() {
     $('.test-cases').slideUp(function() {
@@ -142,4 +147,10 @@ $(document).on('ready page:change', function() {
   });
 
   $('.test-cases').on('change', '.test-case input', updateTestEditor);
+
+  $('.test-cases').on('keydown', '.test-case .output > input', function(e) {
+    if (e.keyCode === 9) {
+      addNewTestCase();
+    }
+  });
 });
