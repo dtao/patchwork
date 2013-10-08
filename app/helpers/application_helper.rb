@@ -18,12 +18,14 @@ module ApplicationHelper
 
   # ----- Reusable HTML-related helpers -----
 
-  def render_table(table_type, records, columns)
-    render(:partial => 'layouts/table', :locals => {
+  def render_table(table_type, records, columns, &block)
+    block ||= lambda { |*args| }
+
+    render(:layout => 'layouts/table', :locals => {
       :table_type => table_type,
       :records    => records,
       :columns    => columns
-    })
+    }, &block)
   end
 
   def render_list(list_type, items)

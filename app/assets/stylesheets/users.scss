@@ -1,0 +1,16 @@
+.users-table {
+  td:first-child img {
+    height: 48px;
+    width: 48px;
+    border-radius: 24px;
+    margin-right: 12px;
+  }
+
+  th, td {
+    vertical-align: middle;
+
+    &:not(:first-child) {
+      text-align: right;
+    }
+  }
+}
