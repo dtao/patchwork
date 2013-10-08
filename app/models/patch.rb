@@ -12,6 +12,6 @@ class Patch < ActiveRecord::Base
   strip_attributes
 
   def each_tag(&block)
-    self.tags.split(/,\s*/).each(&block)
+    (self.tags || '').split(/,\s*/).each(&block)
   end
 end
