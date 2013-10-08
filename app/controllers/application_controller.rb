@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
   private
 
   def handle_active_record_error(err)
-    flash[:error] = err.message
+    flash[:error] = get_error_message(err.record)
 
     # For POST requests, we can send the user back where they came from.
     if request.post?
@@ -29,5 +29,9 @@ class ApplicationController < ActionController::Base
     else
       redirect_to('/')
     end
+  end
+
+  def get_error_message(record)
+    record.errors.map { |attr, err| err }.join(' | ')
   end
 end
