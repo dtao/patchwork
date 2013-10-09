@@ -1,4 +1,4 @@
-body[data-page="patches-new"] {
+body[data-page="patches-new"], body[data-page="patches-edit"] {
   fieldset.tests {
     .test-case {
       @extend .row;
