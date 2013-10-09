@@ -114,6 +114,10 @@ $(document).on('ready page:change', function() {
     getEditorForTextarea('patch_tests').setValue(testSource);
   }
 
+  function isLastTestCase(element) {
+    return $(element).closest('.test-case').next('.test-case').length === 0;
+  }
+
   function addNewTestCase() {
     var testCase = $('.test-cases').find('.test-case:last');
 
@@ -149,7 +153,7 @@ $(document).on('ready page:change', function() {
   $('.test-cases').on('change', '.test-case input', updateTestEditor);
 
   $('.test-cases').on('keydown', '.test-case .output > input', function(e) {
-    if (e.keyCode === 9) {
+    if (e.keyCode === 9 && isLastTestCase(this)) {
       addNewTestCase();
     }
   });
