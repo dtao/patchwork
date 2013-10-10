@@ -1,0 +1,7 @@
+(function(__context__) {
+
+<% @implementations.each do |impl| -%>
+<%= Package.implementation(impl).html_safe %>
+<% end -%>
+
+}(this));

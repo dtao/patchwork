@@ -1,3 +1,5 @@
+require 'package'
+
 class PatchesController < ApplicationController
   def index
     @patches = Patch.order(:id => :desc)
@@ -12,11 +14,20 @@ class PatchesController < ApplicationController
   end
 
   def show
-    @patch = Patch.find(params[:id], :include => :implementations)
+    respond_to do |format|
+      format.html do
+        @patch = Patch.find(params[:id], :include => :implementations)
 
-    # Implementations are already in memory at this point, so we'll do an
-    # in-memory sort.
-    @implementations = @patch.implementations.sort_by(&:score).reverse
+        # Implementations are already in memory at this point, so we'll do an
+        # in-memory sort.
+        @implementations = @patch.implementations.sort_by(&:score).reverse
+      end
+
+      format.js do
+        @patch = Patch.find(params[:id])
+        @implementations = @patch.implementations.order(:score => :desc).limit(1)
+      end
+    end
   end
 
   def edit
