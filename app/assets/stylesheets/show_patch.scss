@@ -49,6 +49,11 @@ body[data-page="patches-show"] {
     .source {
       @extend .col-lg-10;
 
+      .CodeMirror,
+      .CodeMirror-scroll {
+        max-height: 250px;
+      }
+
       .run-tests-for-implementation {
         @extend .btn, .btn-warning;
 
@@ -78,6 +83,8 @@ body[data-page="patches-show"] {
         &:empty {
           background-color: $body-bg;
           width: 0%;
+          margin: 0;
+          padding: 0;
         }
 
         span {
