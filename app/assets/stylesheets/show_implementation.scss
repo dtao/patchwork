@@ -1,6 +1,6 @@
 body[data-page="implementations-show"] {
   & > main > header {
-    h1 a {
+    h1 a:not([href*="edit"]) {
       color: $brand-info;
 
       &:hover {
