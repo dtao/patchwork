@@ -1,6 +1,7 @@
 %header
   %h1
     = implementation_link(@implementation)
+    = link_to('Edit', edit_implementation_path(@implementation)) if @implementation.user == current_user
 
 %section.content
   = form_for(@implementation) do |f|

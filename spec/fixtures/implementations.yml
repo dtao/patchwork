@@ -1,5 +1,6 @@
 chunk/dan:
   user: dan
+  patch: chunk
   source: |
     function chunk(array, N) {
       var chunks = [],

@@ -20,6 +20,17 @@ class ImplementationsController < ApplicationController
     redirect_to(Implementation.create!(implementation_params))
   end
 
+  def edit
+    @implementation = Implementation.find(params[:id])
+    @patch = @implementation.patch
+  end
+
+  def update
+    implementation = Implementation.find(params[:id])
+    implementation.update_attributes(implementation_params)
+    redirect_to(implementation)
+  end
+
   def vote
     impl = Implementation.find(params[:id])
     current_user.vote!(impl)

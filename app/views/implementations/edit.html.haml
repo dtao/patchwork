@@ -1,7 +1,5 @@
 %header
-  %h1
-    Implement
-    = link_to(@patch.name, @patch)
+  %h1= "Edit #{@implementation.label}"
 
 %section.implementation
   = render(:partial => 'form')

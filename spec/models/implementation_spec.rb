@@ -11,4 +11,17 @@ describe Patch do
       end
     end
   end
+
+  describe '#revisions' do
+    it 'creates a revision whenever an implementation is updated' do
+      impl = implementations('chunk/dan')
+      original_source = impl.source
+
+      impl.source = '// redacted'
+      impl.save!
+
+      impl.should have(1).revision
+      impl.revisions.first.source.should == original_source
+    end
+  end
 end
