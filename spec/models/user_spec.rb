@@ -14,9 +14,28 @@ describe User do
 
   describe '#vote!' do
     it 'prevents a user from voting for his/her own implementation' do
-      expect_exception do
+      expect_exception(ActiveRecord::ActiveRecordError) do
         users(:dan).vote!(implementations('chunk/dan'))
       end
+    end
+
+    it 'prevents a user from voting for the same implementation twice' do
+      users(:adam).vote!(implementations('chunk/dan'))
+      expect_exception(ActiveRecord::ActiveRecordError) do
+        users(:adam).vote!(implementations('chunk/dan'))
+      end
+    end
+  end
+
+  describe '#already_voted_for?' do
+    it 'indicates whether a user has already voted for an implementation' do
+      joe   = create_user!('joe')
+      chunk = implementations('chunk/dan')
+
+      joe.already_voted_for?(chunk).should be_false
+
+      joe.vote!(chunk)
+      joe.already_voted_for?(chunk).should be_true
     end
   end
 

@@ -7,6 +7,24 @@ class ApplicationController < ActionController::Base
 
   rescue_from ActiveRecord::ActiveRecordError, :with => :handle_active_record_error
 
+  def render_message(message, redirect_path=nil)
+    if request.xhr?
+      render(:json => { :status => 'success', :message => message })
+    else
+      flash[:notice] = message
+      redirect_to(redirect_path || root_path)
+    end
+  end
+
+  def render_error(message, redirect_path=nil)
+    if request.xhr?
+      render(:json => { :status => 'error', :message => message })
+    else
+      flash[:error] = message
+      redirect_to(redirect_path || root_path)
+    end
+  end
+
   def logged_in?
     !!current_user
   end
@@ -18,17 +36,21 @@ class ApplicationController < ActionController::Base
   private
 
   def handle_active_record_error(err)
-    flash[:error] = get_error_message(err.record)
+    puts "Handing ActiveRecord::ActiveRecordError: #{err}"
+
+    message = get_error_message(err.record)
 
     # For POST requests, we can send the user back where they came from.
-    if request.post?
-      redirect_to(request.referrer)
+    redirect_path = request.referrer
 
-    # Otherwise we'd better play it safe and send 'em back to the home page (to
-    # avoid a redirect loop in case something went wrong with a GET request).
-    else
-      redirect_to('/')
+    if !request.post?
+      # Otherwise we'd better play it safe and send 'em back to the home page
+      # (to avoid a redirect loop in case something went wrong with a GET
+      # request).
+      redirect_path = root_path
     end
+
+    render_error(message)
   end
 
   def get_error_message(record)

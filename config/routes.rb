@@ -8,7 +8,8 @@ Patchwork::Application.routes.draw do
   get '/account'    => 'home#account'
 
   # Special routes
-  get '/patches/:id/implement' => 'implementations#new', :as => :new_implementation
+  get '/patches/:id/implement'     => 'implementations#new', :as => :new_implementation
+  post '/implementations/:id/vote' => 'implementations#vote', :as => :vote_for_implementation
 
   # Resource routes
   resources :users

@@ -1,4 +1,4 @@
-$(document).on('ready page:change', function() {
+$(document).on('ready page:load', function() {
 
   // Reset any pending asynchronous operations whenever the page changes.
   Clean.slate();
@@ -7,34 +7,18 @@ $(document).on('ready page:change', function() {
   // initialization.
   var editors = {};
 
-  // There is almost certainly a better way to do this; but I don't want to
-  // think about that just yet.
-  var JASMINE_TEMPLATE = [
-    'describe("{{name}}", function() {',
-    '',
-    '  {{#testCases}}',
-    '  it("{{{escapedInput}}} => {{{escapedOutput}}}", function() {',
-    '    expect({{name}}({{{input}}})).toEqual({{{output}}});',
-    '  });',
-    '',
-    '  {{/testCases}}',
-    '});'
-  ].join('\n');
-
-  var RSPEC_TEMPLATE = [
-    'describe "{{name}}" do',
-    '',
-    '  {{#testCases}}',
-    '  it "{{{escapedInput}}} => {{{escapedOutput}}}" do',
-    '    {{name}}({{{input}}}).should == {{{output}}}',
-    '  end',
-    '',
-    '  {{/testCases}}',
-    'end'
-  ].join('\n');
-
   function afterDelay(delay, fn) {
     return setTimeout(fn, delay);
+  }
+
+  function displayNotice(message, type) {
+    type = type || 'notice';
+
+    var notice = $('<div id="' + type + '">')
+      .text(message)
+      .appendTo('body');
+
+    afterDelay(0, showNotices());
   }
 
   function showNotices() {
@@ -74,6 +58,46 @@ $(document).on('ready page:change', function() {
     $(textarea).attr('data-editor-id', editor.id);
   }
 
+  function getCallbacksWithDefaults(callbacks) {
+    callbacks = callbacks || {};
+
+    return {
+      success: callbacks.success || function() {},
+      failure: callbacks.failure || function() {},
+      completion: callbacks.completion || function() {}
+    };
+  }
+
+  function popArgument(args) {
+    return Array.prototype.pop.call(args);
+  }
+
+  function postRequest() {
+    var url       = arguments[0],
+        callbacks = getCallbacksWithDefaults(popArgument(arguments)),
+        data      = popArgument(arguments);
+
+    var request = $.post(url, data);
+
+    request.done(function(data) {
+      if (data.status === 'error') {
+        displayNotice(data.message, 'error');
+        callbacks.failure();
+        return;
+      }
+
+      displayNotice(data.message);
+      callbacks.success(data);
+    });
+
+    request.fail(function() {
+      displayNotice('An unexpected error occurred. Try again later?', 'error');
+      callbacks.failure();
+    });
+
+    request.always(callbacks.completion);
+  }
+
   // ----- General initialization -----
 
   $('.code-editor').each(function() {
@@ -82,79 +106,12 @@ $(document).on('ready page:change', function() {
 
   showNotices();
 
-  // ----- Page-specific initialization -----
+  // Expose Patchwork namespace for other files to access some of the
+  // functionality in here.
+  window.Patchwork = {
+    displayNotice: displayNotice,
+    getEditorForTextarea: getEditorForTextarea,
+    postRequest: postRequest
+  };
 
-  function getSimpleTestCases() {
-    return $('.test-case').map(function() {
-      var input  = $('.input input', this).val(),
-          output = $('.output input', this).val();
-
-      if (!input || !output) {
-        return;
-      }
-
-      return {
-        input: input,
-        output: output,
-        escapedInput: input.replace(/"/g, '\''),
-        escapedOutput: output.replace(/"/g, '\'')
-      };
-    }).toArray();
-  }
-
-  function updateTestEditor() {
-    var template = $('#patch_language').val() === 'javascript' ?
-      JASMINE_TEMPLATE : RSPEC_TEMPLATE;
-
-    var testSource = Mustache.render(template, {
-      name: $('#patch_name').val(),
-      testCases: getSimpleTestCases()
-    });
-
-    getEditorForTextarea('patch_tests').setValue(testSource);
-  }
-
-  function isLastTestCase(element) {
-    return $(element).closest('.test-case').next('.test-case').length === 0;
-  }
-
-  function addNewTestCase() {
-    var testCase = $('.test-cases').find('.test-case:last');
-
-    // Who invented jQuery's .end() method? Seriously.
-    // "Let's make it *dangerously* easy to write one-liners!"
-    // Anyway. I'm using it BECAUSE IT EXISTS.
-    testCase.clone().find('input').val('').end().insertAfter(testCase);
-  }
-
-  $('#patch_name').on('change', updateTestEditor);
-
-  $('#patch_language').on('change', function() {
-    getEditorForTextarea('patch_tests').setOption('mode', this.value);
-    updateTestEditor();
-  });
-
-  $('.add-test-case').on('click', addNewTestCase);
-
-  $('.write-tests-manually').on('click', function() {
-    $('.test-cases').slideUp(function() {
-      $('.editor').slideDown(function() {
-        getEditorForTextarea('patch_tests').refresh();
-      });
-    });
-  });
-
-  $('.simple-test-cases').on('click', function() {
-    $('.editor').slideUp(function() {
-      $('.test-cases').slideDown();
-    });
-  });
-
-  $('.test-cases').on('change', '.test-case input', updateTestEditor);
-
-  $('.test-cases').on('keydown', '.test-case .output > input', function(e) {
-    if (e.keyCode === 9 && isLastTestCase(this)) {
-      addNewTestCase();
-    }
-  });
 });

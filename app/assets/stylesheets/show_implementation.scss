@@ -1,0 +1,15 @@
+body[data-page="implementations-show"] {
+  & > main > header {
+    h1 a {
+      color: $text-color;
+
+      &:first-child {
+        color: $brand-info;
+      }
+
+      &:hover {
+        color: $link-hover-color;
+      }
+    }
+  }
+}

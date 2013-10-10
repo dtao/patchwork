@@ -1,6 +1,11 @@
 @import "flatly";
 @import "twitter/bootstrap";
 @import "codemirror";
+@import "fontello";
+
+@mixin icon($name) {
+  @extend [class^="icon-"], [class*=" icon-"], .icon-#{$name};
+}
 
 // ----- Site layout -----
 
@@ -44,6 +49,7 @@ body > main {
   right: 0;
   margin-bottom: 0;
   text-align: center;
+  z-index: 10;
 
   transition: bottom 1s;
 }
@@ -110,3 +116,4 @@ form {
 @import "new_patch";
 @import "show_patch";
 @import "new_implementation";
+@import "show_implementation";

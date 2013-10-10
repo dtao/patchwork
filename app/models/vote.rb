@@ -2,13 +2,19 @@ class Vote < ActiveRecord::Base
   belongs_to :user
   belongs_to :implementation, :counter_cache => :score
 
-  validate :prevent_cheating
+  validate :prevent_cheating, :prevent_duplicate_votes
 
   after_create :update_affected_user_score!
 
   def prevent_cheating
     if self.user == self.implementation.user
-      self.errors << "You aren't allowed to vote for your own implementation."
+      self.errors.add(:user_id, "You aren't allowed to vote for your own implementation.")
+    end
+  end
+
+  def prevent_duplicate_votes
+    if self.user.already_voted_for?(self.implementation_id)
+      self.errors.add(:user_id, "You can't vote for the same implementation twice.")
     end
   end
 

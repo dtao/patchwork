@@ -19,4 +19,5 @@
 //= require codemirror/placeholder
 //= require mustache
 //= require cleanSlate
+//= require patchwork
 //= require_tree .

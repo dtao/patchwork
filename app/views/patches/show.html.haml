@@ -18,19 +18,26 @@
   = link_to('Implement', new_implementation_path(@patch))
   = link_to('Back', patches_path)
 
-%section.implementations
-  %h2 Implementations
+- if @implementations.any?
+  %section.implementations
+    %h2 Implementations
 
-  %hr
+    %hr
 
-  - @patch.implementations.each do |impl|
-    .implementation
-      .user
-        .profile-image
-          = image_tag(impl.user.gravatar_url(:size => 120, :default => 'identicon'))
-        %h3
-          = impl.user.name
-          %small= friendly_date(impl.created_at)
+    - @patch.implementations.each do |impl|
+      .implementation
+        .user
+          .profile-image
+            = image_tag(impl.user.gravatar_url(:size => 120, :default => 'identicon'))
+          %h3
+            = link_to(impl.user.name, impl.user)
+            %small= friendly_date(impl.created_at)
+          %h4
+            %span.score= impl.score
 
-      .source
-        %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source
+            - if logged_in? && !current_user.already_voted_for?(impl)
+              %button(data-implementation-id="#{impl.id}")
+                %span.vote
+
+        .source
+          %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source

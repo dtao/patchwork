@@ -7,4 +7,8 @@ class Implementation < ActiveRecord::Base
   validates_presence_of :source,   :message => "Empty implementations aren't allowed."
 
   strip_attributes
+
+  def label
+    "#{self.patch.name}/#{self.user.name}"
+  end
 end

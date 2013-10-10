@@ -1,4 +1,9 @@
 dan:
   name: Dan
   email: daniel.tao@gmail.com
-  password_digest: horsey
+  password_digest: froggy
+
+adam:
+  name: Adam
+  email: adam.david.nathan@tao.com
+  password_digest: monkey

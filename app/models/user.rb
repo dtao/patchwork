@@ -17,4 +17,8 @@ class User < ActiveRecord::Base
   def vote!(implementation)
     self.votes.create!(:implementation => implementation)
   end
+
+  def already_voted_for?(implementation_id)
+    self.votes.where(:implementation_id => implementation_id).any?
+  end
 end

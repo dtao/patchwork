@@ -18,6 +18,32 @@ body[data-page="patches-show"] {
       @extend .col-lg-2;
 
       text-align: center;
+
+      .score {
+        @extend .label, .label-success;
+
+        &:before {
+          content: "Score: ";
+        }
+      }
+
+      h4 {
+        button {
+          background-color: $body-bg;
+          color: $text-color;
+          border: none;
+          padding: 0;
+          font-size: 150%;
+
+          &:hover {
+            color: $link-hover-color;
+          }
+        }
+
+        span.vote {
+          @include icon(thumbs-up);
+        }
+      }
     }
 
     .source {

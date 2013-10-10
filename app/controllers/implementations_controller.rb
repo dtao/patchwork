@@ -13,6 +13,14 @@ class ImplementationsController < ApplicationController
     redirect_to(Implementation.create!(implementation_params))
   end
 
+  def vote
+    impl = Implementation.find(params[:id])
+
+    current_user.vote!(impl)
+
+    render_message("You voted for #{impl.label}.", implementation_path(impl))
+  end
+
   private
 
   def implementation_params

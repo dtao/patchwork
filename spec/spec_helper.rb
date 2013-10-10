@@ -53,8 +53,8 @@ RSpec.configure do |config|
 
   # ----- Expectation helpers -----
 
-  def expect_exception(&block)
-    block.should raise_error
+  def expect_exception(exception_type=nil, &block)
+    block.should raise_error(*exception_type)
   end
 
   def expect_attribute_change(record, attribute, expected_change=1, &block)
