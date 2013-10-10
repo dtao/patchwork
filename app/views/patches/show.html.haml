@@ -14,11 +14,23 @@
   = form_for(@patch) do |f|
     = code_editor(f, :tests, @patch.language, :'data-readonly' => true)
 
-%h2 Implementations
-
-- @patch.implementations.each do |impl|
-  %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source
-
 %section.actions
   = link_to('Implement', new_implementation_path(@patch))
   = link_to('Back', patches_path)
+
+%section.implementations
+  %h2 Implementations
+
+  %hr
+
+  - @patch.implementations.each do |impl|
+    .implementation
+      .user
+        .profile-image
+          = image_tag(impl.user.gravatar_url(:size => 120, :default => 'identicon'))
+        %h3
+          = impl.user.name
+          %small= friendly_date(impl.created_at)
+
+      .source
+        %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source

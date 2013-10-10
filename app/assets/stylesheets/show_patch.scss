@@ -1,11 +1,27 @@
-body > main > header {
-  .details {
-    span.language {
-      @extend .label, .label-primary;
+body[data-page="patches-show"] {
+  & > main > header {
+    .details {
+      span.language {
+        @extend .label, .label-primary;
+      }
+
+      span.tag {
+        @extend .label, .label-default;
+      }
+    }
+  }
+
+  .implementation {
+    @extend .row;
+
+    .user {
+      @extend .col-lg-2;
+
+      text-align: center;
     }
 
-    span.tag {
-      @extend .label, .label-default;
+    .source {
+      @extend .col-lg-10;
     }
   }
 }
