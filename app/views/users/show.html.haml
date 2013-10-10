@@ -1,6 +1,6 @@
 %header
   .profile-image
-    = image_tag(@user.gravatar_url(:size => 160, :default => 'identicon'))
+    = gravatar(@user, 160)
 
   .user-info
     %h1

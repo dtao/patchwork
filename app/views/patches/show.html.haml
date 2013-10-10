@@ -28,7 +28,7 @@
       .implementation
         .info
           .profile-image
-            = image_tag(impl.user.gravatar_url(:size => 120, :default => 'identicon'))
+            = gravatar(impl.user, 120)
           %h3
             = link_to(impl.user.name, impl.user)
             %small= friendly_date(impl.created_at)

@@ -39,6 +39,10 @@ module ApplicationHelper
     link_to(text, 'javascript:void(0);', options)
   end
 
+  def gravatar(user, size)
+    image_tag(user.gravatar_url(:size => size, :default => 'identicon'))
+  end
+
   def render_table(table_type, records, columns, &block)
     block ||= lambda { |*args| }
 

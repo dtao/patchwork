@@ -13,7 +13,7 @@
 - comments.each do |comment|
   .comment
     .user
-      = image_tag(comment.user.gravatar_url(:size => 48))
+      = gravatar(comment.user, 48)
     .content
       %h4
         = link_to(comment.user.name, comment.user)
