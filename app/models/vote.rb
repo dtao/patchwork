@@ -6,6 +6,8 @@ class Vote < ActiveRecord::Base
 
   after_create :update_affected_user_score!
 
+  protected
+
   def prevent_cheating
     if self.user == self.implementation.user
       self.errors.add(:user_id, "You aren't allowed to vote for your own implementation.")
