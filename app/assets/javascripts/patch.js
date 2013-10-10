@@ -25,6 +25,8 @@ $(document).on('ready', function() {
         implEditor = Patchwork.getEditorForTextarea(textarea.get(0)),
         results    = source.find('.results');
 
+    results.empty();
+
     Patchwork.runTests({
       implementation: implEditor.getValue(),
       tests: testEditor.getValue(),

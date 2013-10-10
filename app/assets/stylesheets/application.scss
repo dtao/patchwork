@@ -29,6 +29,23 @@
   }
 }
 
+@mixin three-column-table($col1-width, $col2-width, $col3-width) {
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: $col1-width;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: $col2-width;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: $col3-width;
+  }
+}
+
 // ----- Site layout -----
 
 .container {

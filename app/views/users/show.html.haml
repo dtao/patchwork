@@ -12,11 +12,11 @@
 %section.content
   - if @patches.any?
     %h2 Recent Patches
-    = render_table('patches', @patches, [:name, :implementations_count])
+    = render_table('patches', @patches, [:name, ['Introduced', :created_at], ['Implementations', :implementations_count]])
 
   - if @implementations.any?
     %h2 Top Implementations
-    = render_table('implementations', @implementations, [:label, :score])
+    = render_table('implementations', @implementations, [:label, ['Submitted', :created_at], :score])
 
 %section.actions
   = link_to('Back', users_path)

@@ -1,14 +1,11 @@
 body[data-page="implementations-show"] {
   & > main > header {
     h1 a {
-      color: $text-color;
-
-      &:first-child {
-        color: $brand-info;
-      }
+      color: $brand-info;
 
       &:hover {
-        color: $link-hover-color;
+        color: darken($brand-info, 20%);
+        text-decoration: none;
       }
     }
   }

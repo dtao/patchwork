@@ -12,4 +12,4 @@
           = link_to(record.send(columns.first), record)
 
         - columns[1..-1].each do |column|
-          %td= record.send(column)
+          %td= friendly_format(record.send(column))

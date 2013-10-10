@@ -12,6 +12,16 @@ module ApplicationHelper
 
   # ----- Format-related helpers -----
 
+  def friendly_format(value)
+    case value
+    when Date, DateTime, ActiveSupport::TimeWithZone
+      friendly_date(value)
+    else
+      puts "Encountered value of type #{value.class}"
+      value
+    end
+  end
+
   def friendly_date(date)
     time_ago_in_words(date) + ' ago'
   end
