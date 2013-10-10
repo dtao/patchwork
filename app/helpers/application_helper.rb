@@ -24,7 +24,6 @@ module ApplicationHelper
     when Date, DateTime, ActiveSupport::TimeWithZone
       friendly_date(value)
     else
-      puts "Encountered value of type #{value.class}"
       value
     end
   end
