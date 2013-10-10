@@ -8,14 +8,15 @@
       .field= f.text_area(:content)
       .actions= f.submit
 
+- if comments.any?
   %hr
 
-- comments.each do |comment|
-  .comment
-    .user
-      = gravatar(comment.user, 48)
-    .content
-      %h4
-        = link_to(comment.user.name, comment.user)
-        %small= friendly_date(comment.created_at)
-      %p= comment.content
+  - comments.each do |comment|
+    .comment
+      .user
+        = gravatar(comment.user, 48)
+      .content
+        %h4
+          = link_to(comment.user.name, comment.user)
+          %small= friendly_date(comment.created_at)
+        %p= comment.content
