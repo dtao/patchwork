@@ -1,3 +1,9 @@
+$(document).on('page:fetch', function() {
+  Patchwork.afterDelay(300, function() {
+    $('body').addClass('loading');
+  });
+});
+
 $(document).on('ready page:load', function() {
 
   // Reset any pending asynchronous operations whenever the page changes.
@@ -109,9 +115,14 @@ $(document).on('ready page:load', function() {
   // Expose Patchwork namespace for other files to access some of the
   // functionality in here.
   window.Patchwork = {
+    afterDelay: afterDelay,
     displayNotice: displayNotice,
     getEditorForTextarea: getEditorForTextarea,
-    postRequest: postRequest
+    initializeCodeEditor: initializeCodeEditor,
+    postRequest: postRequest,
+    showNotices: showNotices
   };
+
+  $('body').removeClass('loading');
 
 });
