@@ -26,7 +26,7 @@
 
     - @patch.implementations.each do |impl|
       .implementation
-        .user
+        .info
           .profile-image
             = image_tag(impl.user.gravatar_url(:size => 120, :default => 'identicon'))
           %h3
@@ -41,3 +41,5 @@
 
         .source
           %textarea.code-editor(data-language="#{@patch.language}" data-readonly="true")= impl.source
+          = empty_link('Run Tests', :class => 'run-tests-for-implementation')
+          .results

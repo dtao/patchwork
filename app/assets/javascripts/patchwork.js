@@ -110,6 +110,36 @@ $(document).on('ready page:load', function() {
     request.always(callbacks.completion);
   }
 
+  function runTests(options) {
+    var testRunner = new Worker('/javascripts/testRunner.js');
+
+    var runnerTimeout = Patchwork.afterDelay(3000, function() {
+      testRunner.terminate();
+      Patchwork.displayNotice('The tests took longer than 3 seconds to run.', 'error');
+    });
+
+    testRunner.addEventListener('message', function(e) {
+      var data = JSON.parse(e.data);
+
+      if (data.finished) {
+        clearTimeout(runnerTimeout);
+        return;
+      }
+
+      if (data.message) {
+        Patchwork.displayNotice(data.message, 'error');
+        return;
+      }
+
+      options.resultCallback(data);
+    });
+
+    testRunner.postMessage(JSON.stringify({
+      implementation: options.implementation,
+      tests: options.tests
+    }));
+  }
+
   // ----- General initialization -----
 
   $('.code-editor').each(function() {
@@ -123,10 +153,11 @@ $(document).on('ready page:load', function() {
   window.Patchwork = {
     afterDelay: afterDelay,
     displayNotice: displayNotice,
+    showNotices: showNotices,
     getEditorForTextarea: getEditorForTextarea,
     initializeCodeEditor: initializeCodeEditor,
     postRequest: postRequest,
-    showNotices: showNotices
+    runTests: runTests
   };
 
   $('body').removeClass('loading');

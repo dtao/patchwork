@@ -14,7 +14,7 @@ body[data-page="patches-show"] {
   .implementation {
     @extend .row;
 
-    .user {
+    .info {
       @extend .col-lg-2;
 
       text-align: center;
@@ -48,6 +48,48 @@ body[data-page="patches-show"] {
 
     .source {
       @extend .col-lg-10;
+
+      .run-tests-for-implementation {
+        @extend .btn, .btn-warning;
+
+        position: absolute;
+        top: $padding-base-vertical;
+        right: $padding-base-horizontal;
+      }
+
+      .results {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+
+        margin: $padding-base-vertical $padding-base-horizontal;
+        padding: $padding-base-vertical $padding-base-horizontal;
+        padding-left: $padding-base-horizontal * 2;
+
+        background-color: #000;
+        opacity: 0.5;
+
+        transition: width 0.5s;
+
+        &:empty {
+          background-color: $body-bg;
+          width: 0%;
+        }
+
+        span {
+          margin-right: 1em;
+
+          &.success {
+            color: $brand-success;
+          }
+
+          &.failure {
+            color: $brand-danger;
+          }
+        }
+      }
     }
   }
 }
