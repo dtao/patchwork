@@ -10,6 +10,13 @@ module ApplicationHelper
     render(:partial => 'home/notices')
   end
 
+  def comments(comments, new_comment=nil)
+    render(:partial => 'layouts/comments', :locals => {
+      :new_comment => new_comment,
+      :comments    => comments
+    })
+  end
+
   # ----- Format-related helpers -----
 
   def friendly_format(value)

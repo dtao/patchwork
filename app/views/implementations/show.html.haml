@@ -7,23 +7,4 @@
     = code_editor(f, :source, @patch.language, :'data-readonly' => true)
 
 %section.comments
-  = form_for(@new_comment) do |f|
-    %fieldset
-      %legend Add a Comment
-      = f.hidden_field(:subject_id)
-      = f.hidden_field(:subject_type)
-
-      .field= f.text_area(:content)
-      .actions= f.submit
-
-  %hr
-
-  - @comments.each do |comment|
-    .comment
-      .user
-        = image_tag(comment.user.gravatar_url(:size => 48))
-      .content
-        %h4
-          = link_to(comment.user.name, comment.user)
-          %small= friendly_date(comment.created_at)
-        %p= comment.content
+  = comments(@comments, @new_comment)
