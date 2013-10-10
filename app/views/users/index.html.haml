@@ -1,5 +1,5 @@
 %header
   %h1 Top Users
 
-= render_table('users', @users, [:name, :patches_count, :implementations_count, :score]) do |user|
-  = image_tag(user.gravatar_url(:size => 48))
+= render_table('users', @users, [:name, ['Patches', :patches_count], ['Implementations', :implementations_count], :score]) do |user|
+  = image_tag(user.gravatar_url(:size => 48, :default => 'identicon'))

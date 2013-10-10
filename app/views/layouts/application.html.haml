@@ -7,6 +7,8 @@
     = csrf_meta_tags
 
   %body(data-page="#{params[:controller]}-#{params[:action]}")
+    = notices
+
     %nav
       .container
         %ul
@@ -17,6 +19,4 @@
         = session_links
 
     %main
-      = notices
-
       = yield

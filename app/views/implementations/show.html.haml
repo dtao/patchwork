@@ -1,7 +1,7 @@
 %header
   %h1
     = link_to(@patch.name, @patch)
-    = link_to(@implementation.user.name)
+    = link_to(@implementation.user.name, @implementation.user)
 
 = form_for(@implementation) do |f|
   = code_editor(f, :source, @patch.language, :'data-readonly' => true)
