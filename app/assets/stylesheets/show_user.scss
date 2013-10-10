@@ -1,21 +1,15 @@
 body[data-page="users-show"] {
   & > main > header {
-    @extend .media;
+    @include media-object(".profile-image", ".user-info");
 
     .profile-image {
-      @extend .pull-left;
-
       img {
-        @extend .media-object;
-
         height: 160px;
         width: 160px;
       }
     }
 
     .user-info {
-      @extend .media-body;
-
       h1 > small {
         display: block;
       }

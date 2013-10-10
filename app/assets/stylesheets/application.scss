@@ -3,6 +3,12 @@
 @import "codemirror";
 @import "fontello";
 
+@mixin headings {
+  h1, h2, h3, h4, h5, h6 {
+    @content;
+  }
+}
+
 @mixin icon($name) {
   @extend [class^="icon-"], [class*=" icon-"], .icon-#{$name};
 }
@@ -43,6 +49,28 @@
   th:nth-child(3),
   td:nth-child(3) {
     width: $col3-width;
+  }
+}
+
+// ----- Bootstrap-specific helpers -----
+
+@mixin media-object($left-selector, $right-selector) {
+  @extend .media;
+
+  #{$left-selector} {
+    @extend .pull-left;
+
+    img {
+      @extend .media-object;
+    }
+  }
+
+  #{$right-selector} {
+    @extend .media-body;
+
+    @include headings {
+      @extend .media-heading;
+    }
   }
 }
 
@@ -186,24 +214,12 @@ form {
 
 .comments {
   .comment {
-    @extend .media;
+    @include media-object(".user", ".content");
 
     .user {
-      @extend .pull-left;
-
       img {
-        @extend .media-object;
-
         height: 48px;
         width: 48px;
-      }
-    }
-
-    .content {
-      @extend .media-body;
-
-      h4 {
-        @extend .media-heading;
       }
     }
   }
