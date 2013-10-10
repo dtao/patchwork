@@ -38,7 +38,7 @@ class ApplicationController < ActionController::Base
   def handle_active_record_error(err)
     puts "Handing ActiveRecord::ActiveRecordError: #{err}"
 
-    message = get_error_message(err.record)
+    message = get_error_message(err)
 
     # For POST requests, we can send the user back where they came from.
     redirect_path = request.referrer
@@ -53,7 +53,9 @@ class ApplicationController < ActionController::Base
     render_error(message)
   end
 
-  def get_error_message(record)
+  def get_error_message(error)
+    return error.message unless error.respond_to?(:record)
+
     record.errors.map { |attr, err| err }.join(' | ')
   end
 end
