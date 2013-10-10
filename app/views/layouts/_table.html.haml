@@ -1,8 +1,8 @@
 %table(class="#{table_type}-table")
   %thead
     %tr
-      - columns.each do |column|
-        %th= "#{column}".titleize
+      - column_headings.each do |heading|
+        %th= "#{heading}".titleize
 
   %tbody
     - records.each do |record|

@@ -26,9 +26,10 @@ module ApplicationHelper
     block ||= lambda { |*args| }
 
     render(:layout => 'layouts/table', :locals => {
-      :table_type => table_type,
-      :records    => records,
-      :columns    => columns
+      :table_type      => table_type,
+      :records         => records,
+      :column_headings => columns.map { |col| [*col].first },
+      :columns         => columns.map { |col| [*col].last }
     }, &block)
   end
 
