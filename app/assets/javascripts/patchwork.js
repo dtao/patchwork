@@ -127,6 +127,7 @@ $(document).on('ready page:load', function() {
       }
 
       if (data.message) {
+        clearTimeout(runnerTimeout);
         Patchwork.displayNotice(data.message, 'error');
         return;
       }
