@@ -10,6 +10,9 @@
 # Ignore database config
 /config/database.yml
 
+# Don't store your friends' e-mail addresses in the repo!
+/config/users.yml
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
