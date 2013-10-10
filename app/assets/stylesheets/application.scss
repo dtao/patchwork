@@ -184,6 +184,31 @@ form {
   width: 20px;
 }
 
+.comments {
+  .comment {
+    @extend .media;
+
+    .user {
+      @extend .pull-left;
+
+      img {
+        @extend .media-object;
+
+        height: 48px;
+        width: 48px;
+      }
+    }
+
+    .content {
+      @extend .media-body;
+
+      h4 {
+        @extend .media-heading;
+      }
+    }
+  }
+}
+
 // ----- Page-specific styles -----
 
 @import "users";

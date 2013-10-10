@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131007222455) do
+ActiveRecord::Schema.define(version: 20131010012924) do
+
+  create_table "comments", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "subject_id"
+    t.string   "subject_type"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["subject_id"], name: "index_comments_on_subject_id", using: :btree
+  add_index "comments", ["subject_type"], name: "index_comments_on_subject_type", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "implementations", force: true do |t|
     t.integer  "user_id"
