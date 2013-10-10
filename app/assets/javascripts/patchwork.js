@@ -116,6 +116,10 @@ $(document).on('ready page:load', function() {
     var runnerTimeout = Patchwork.afterDelay(3000, function() {
       testRunner.terminate();
       Patchwork.displayNotice('The tests took longer than 3 seconds to run.', 'error');
+
+      if (options.completionCallback) {
+        options.completionCallback();
+      }
     });
 
     testRunner.addEventListener('message', function(e) {
@@ -123,12 +127,18 @@ $(document).on('ready page:load', function() {
 
       if (data.finished) {
         clearTimeout(runnerTimeout);
+        if (options.completionCallback) {
+          options.completionCallback();
+        }
         return;
       }
 
       if (data.message) {
         clearTimeout(runnerTimeout);
         Patchwork.displayNotice(data.message, 'error');
+        if (options.completionCallback) {
+          options.completionCallback();
+        }
         return;
       }
 

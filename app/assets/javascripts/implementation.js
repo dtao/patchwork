@@ -110,7 +110,10 @@ $(document).on('ready page:load', function() {
 
   $('.run-tests').click(function() {
     var implEditor = Patchwork.getEditorForTextarea('implementation_source'),
-        testEditor = Patchwork.getEditorForTextarea('patch_tests');
+        testEditor = Patchwork.getEditorForTextarea('patch_tests'),
+        wrapper    = $(testEditor.getWrapperElement());
+
+    wrapper.addClass('loading');
 
     Patchwork.runTests({
       implementation: implEditor.getValue(),
@@ -124,6 +127,9 @@ $(document).on('ready page:load', function() {
             testEditor.setGutterMarker(i, 'test-results', createGutterMarker(success));
           }
         }
+      },
+      completionCallback: function() {
+        wrapper.removeClass('loading');
       }
     });
   });
