@@ -35,7 +35,7 @@
           %h4
             %span.score= impl.score
 
-            - if logged_in? && !current_user.already_voted_for?(impl)
+            - if logged_in? && current_user.can_vote_for?(impl)
               %button(data-implementation-id="#{impl.id}")
                 %span.vote
 

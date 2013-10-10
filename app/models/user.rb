@@ -21,4 +21,8 @@ class User < ActiveRecord::Base
   def already_voted_for?(implementation_id)
     self.votes.where(:implementation_id => implementation_id).any?
   end
+
+  def can_vote_for?(implementation)
+    self != implementation.user && !self.already_voted_for?(implementation.id)
+  end
 end
