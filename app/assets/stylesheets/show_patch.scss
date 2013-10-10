@@ -55,6 +55,8 @@ body[data-page="patches-show"] {
         position: absolute;
         top: $padding-base-vertical;
         right: $padding-base-horizontal;
+
+        z-index: 10;
       }
 
       .results {
