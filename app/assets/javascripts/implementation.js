@@ -69,6 +69,14 @@ $(document).on('ready page:load', function() {
     testCase.clone().find('input').val('').end().insertAfter(testCase);
   }
 
+  function createGutterMarker(success) {
+    var marker = $('<span>')
+      .addClass(success ? 'success' : 'failure')
+      .text(success ? ':)' : ':(');
+
+    return marker.get(0);
+  }
+
   $('#patch_name').on('change', updateTestEditor);
 
   $('#patch_language').on('change', function() {
@@ -98,6 +106,48 @@ $(document).on('ready page:load', function() {
     if (e.keyCode === 9 && isLastTestCase(this)) {
       addNewTestCase();
     }
+  });
+
+  $('.run-tests').click(function() {
+    var implEditor = Patchwork.getEditorForTextarea('implementation_source'),
+        testEditor = Patchwork.getEditorForTextarea('patch_tests');
+
+    var testRunner = new Worker('/javascripts/testRunner.js');
+
+    var runnerTimeout = Patchwork.afterDelay(3000, function() {
+      testRunner.terminate();
+      Patchwork.displayNotice('The tests took longer than 3 seconds to run.', 'error');
+    });
+
+    testRunner.addEventListener('message', function(e) {
+      var data = JSON.parse(e.data);
+
+      if (data.finished) {
+        clearTimeout(runnerTimeout);
+        return;
+      }
+
+      if (data.message) {
+        Patchwork.displayNotice(data.message, 'error');
+        return;
+      }
+
+      console.log(data);
+
+      var description = data.description,
+          success     = data.failures.length === 0;
+
+      for (var i = 0; i < testEditor.lineCount(); ++i) {
+        if (testEditor.getLine(i).indexOf(description) !== -1) {
+          testEditor.setGutterMarker(i, 'test-results', createGutterMarker(success));
+        }
+      }
+    });
+
+    testRunner.postMessage(JSON.stringify({
+      implementation: implEditor.getValue(),
+      tests: testEditor.getValue()
+    }));
   });
 
 });

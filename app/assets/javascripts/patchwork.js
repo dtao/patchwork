@@ -52,11 +52,17 @@ $(document).on('ready page:load', function() {
   }
 
   function initializeCodeEditor(textarea) {
-    var editor = CodeMirror.fromTextArea(textarea, {
+    var options = {
       mode: textarea.getAttribute('data-language'),
       readOnly: textarea.getAttribute('data-readonly'),
-      lineNumbers: true,
-    });
+      lineNumbers: true
+    };
+
+    if (textarea.getAttribute('data-extra-gutter')) {
+      options.gutters = ['CodeMirror-linenumbers', textarea.getAttribute('data-extra-gutter')];
+    }
+
+    var editor = CodeMirror.fromTextArea(textarea, options);
 
     editor.id = nextEditorId();
     editors[editor.id] = editor;

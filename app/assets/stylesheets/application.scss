@@ -131,6 +131,9 @@ form {
 
 .CodeMirror {
   height: auto;
+
+  .success { color: $brand-success; }
+  .failure { color: $brand-danger; }
 }
 
 .CodeMirror-scroll {
@@ -141,6 +144,10 @@ form {
 
 .CodeMirror-empty {
   color: $text-muted;
+}
+
+.test-results {
+  width: 20px;
 }
 
 // ----- Page-specific styles -----

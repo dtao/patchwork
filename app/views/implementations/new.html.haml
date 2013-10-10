@@ -11,7 +11,8 @@
 
       .actions
         = f.submit
+        = empty_link('Run Tests', :class => 'run-tests')
 
   %section.tests
     = form_for(@patch) do |f|
-      = code_editor(f, :tests, @patch.language)
+      = code_editor(f, :tests, @patch.language, :'data-extra-gutter' => 'test-results')
