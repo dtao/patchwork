@@ -1,13 +1,6 @@
 body[data-page="users-show"] {
   & > main > header {
-    @include media-object(".profile-image", ".user-info");
-
-    .profile-image {
-      img {
-        height: 160px;
-        width: 160px;
-      }
-    }
+    @include media-object(".profile-image", ".user-info", 160px);
 
     .user-info {
       h1 > small {
