@@ -1,5 +1,3 @@
-require 'package'
-
 class PatchesController < ApplicationController
   before_filter :require_login, :only => [:new, :create, :edit, :update]
 
@@ -16,20 +14,11 @@ class PatchesController < ApplicationController
   end
 
   def show
-    respond_to do |format|
-      format.html do
-        @patch = Patch.find(params[:id], :include => :implementations)
+    @patch = Patch.find(params[:id], :include => :implementations)
 
-        # Implementations are already in memory at this point, so we'll do an
-        # in-memory sort.
-        @implementations = @patch.implementations.sort_by(&:score).reverse
-      end
-
-      format.js do
-        @patch = Patch.find(params[:id])
-        @implementations = @patch.implementations.order(:score => :desc).limit(1)
-      end
-    end
+    # Implementations are already in memory at this point, so we'll do an
+    # in-memory sort.
+    @implementations = @patch.implementations.sort_by(&:score).reverse
   end
 
   def edit

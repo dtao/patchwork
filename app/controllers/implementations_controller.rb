@@ -1,5 +1,3 @@
-require 'ext/enumerable'
-
 class ImplementationsController < ApplicationController
   before_filter :require_login, :only => [:new, :create, :edit, :update, :vote, :comment]
 
