@@ -34,6 +34,7 @@
             %small= friendly_date(impl.created_at)
           %h4
             %span.score= impl.score
+            = link_to('View', impl)
 
             - if logged_in? && current_user.can_vote_for?(impl)
               %button(data-implementation-id="#{impl.id}")

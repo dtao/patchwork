@@ -14,6 +14,8 @@ body[data-page="patches-show"] {
   .implementation {
     @extend .row;
 
+    margin-bottom: $padding-base-vertical * 2;
+
     .info {
       @extend .col-lg-2;
 
@@ -28,6 +30,10 @@ body[data-page="patches-show"] {
       }
 
       h4 {
+        a {
+          @extend .label, .label-info;
+        }
+
         button {
           background-color: $body-bg;
           color: $text-color;
