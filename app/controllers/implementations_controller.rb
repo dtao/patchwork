@@ -1,6 +1,8 @@
 require 'ext/enumerable'
 
 class ImplementationsController < ApplicationController
+  before_filter :require_login, :only => [:new, :create, :edit, :update, :vote, :comment]
+
   def show
     @implementation = Implementation.find(params[:id], :include => :comments)
     @patch = @implementation.patch

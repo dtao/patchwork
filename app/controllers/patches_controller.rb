@@ -1,6 +1,8 @@
 require 'package'
 
 class PatchesController < ApplicationController
+  before_filter :require_login, :only => [:new, :create, :edit, :update]
+
   def index
     @patches = Patch.order(:id => :desc)
   end

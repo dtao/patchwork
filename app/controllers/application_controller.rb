@@ -33,6 +33,12 @@ class ApplicationController < ActionController::Base
     @current_user ||= User.find_by_id(session[:user_id])
   end
 
+  def require_login
+    unless logged_in?
+      render_error('You must be logged in to do that.', request.referrer)
+    end
+  end
+
   private
 
   def handle_active_record_error(err)
