@@ -69,10 +69,16 @@ $(document).on('ready page:load', function() {
     testCase.clone().find('input').val('').end().insertAfter(testCase);
   }
 
-  function createGutterMarker(success) {
+  function createGutterMarker(result) {
+    var success = result.failures.length === 0;
+
     var marker = $('<span>')
       .addClass(success ? 'success' : 'failure')
       .text(success ? ':)' : ':(');
+
+    if (!success) {
+      marker.attr('data-error-message', result.failures.join('; '));
+    }
 
     return marker.get(0);
   }
@@ -119,12 +125,12 @@ $(document).on('ready page:load', function() {
       implementation: implEditor.getValue(),
       tests: testEditor.getValue(),
       resultCallback: function(result) {
-        var description = result.description,
-            success     = result.failures.length === 0;
+        var description = result.description;
 
         for (var i = 0; i < testEditor.lineCount(); ++i) {
           if (testEditor.getLine(i).indexOf(description) !== -1) {
-            testEditor.setGutterMarker(i, 'test-results', createGutterMarker(success));
+            testEditor.setGutterMarker(i, 'test-results', createGutterMarker(result));
+            break;
           }
         }
       },

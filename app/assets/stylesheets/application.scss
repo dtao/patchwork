@@ -138,6 +138,8 @@ body > main {
 }
 
 #notice, #error {
+  @extend .lead;
+
   position: fixed;
   bottom: -100px;
   left: 0;
@@ -199,8 +201,26 @@ form {
     background: $body-bg url("/assets/spinner.gif") no-repeat center;
   }
 
-  .success { color: $brand-success; }
-  .failure { color: $brand-danger; }
+  .success {
+    color: $brand-success;
+  }
+
+  .failure {
+    color: $brand-danger;
+    cursor: pointer;
+
+    &:hover:after {
+      content: attr(data-error-message);
+
+      display: block;
+      position: fixed;
+      bottom: 1ex;
+      right: 1em;
+      text-align: right;
+      padding: 1ex 1em;
+      background-color: #ff0;
+    }
+  }
 }
 
 .CodeMirror-scroll {
