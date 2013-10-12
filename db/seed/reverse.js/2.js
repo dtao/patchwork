@@ -1,3 +1,7 @@
 function reverse(str) {
-  return str.split('').reverse().join('');
+  var r = '';
+  for (var i = str.length - 1; i >= 0; --i) {
+    r += str.charAt(i);
+  }
+  return r;
 }
